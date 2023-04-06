@@ -1,0 +1,117 @@
+<h1 class="h1 mb-4 mt-3 fw-normal container-md">Reportes</h1>
+<div class="container-md border border-dark m-3 p-3 mx-auto">
+  <form [formGroup]="select">
+    <div class="form-floating">
+      <select
+        formControlName="selecc"
+        (change)="cambio()"
+        class="form-select"
+        aria-label="Floating label select example"
+      >
+        <option disabled selected>--Selecciona una categoria</option>
+        <option [value]="'averia'">averia</option>
+        <option [value]="'preventivo'">preventivo</option>
+        <option [value]="'mantenimiento'">mantenimiento</option>
+      </select>
+      <label for="floatingSelect">Selecciona una categoria</label>
+    </div>
+  </form>
+
+  <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#mantenimiento2" >Mandar a mantenimiento</button>
+  
+  <div *ngIf="cat == 'averia'" class="table-responsive mt-4 container-md mx-auto">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Item Reportado</th>
+          <th>Autor</th>
+          <th>Descripcion</th>
+          <th>fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consult of rep">
+          <td>{{ consult.Item }}</td>
+          <td>{{ consult.autor }}</td>
+          <td>{{ consult.descripcion }}</td>
+          <td>{{ consult.fecha }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="cat == 'preventivo'" class="table-responsive mt-4 container-md mx-auto">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Item Reportado</th>
+          <th>Autor</th>
+          <th>Descripcion</th>
+          <th>fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consult of rep">
+          <td>{{ consult.Item }}</td>
+          <td>{{ consult.autor }}</td>
+          <td>{{ consult.descripcion }}</td>
+          <td>{{ consult.fecha }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="cat == 'mantenimiento'" class="table-responsive mt-4 container-md mx-auto">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Item Reportado</th>
+          <th>Autor</th>
+          <th>Descripcion</th>
+          <th>fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consult of rep">
+          <td>{{ consult.Item }}</td>
+          <td>{{ consult.autor }}</td>
+          <td>{{ consult.descripcion }}</td>
+          <td>{{ consult.fecha }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade" id="mantenimiento2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="mant">
+            <label for="floatingInput" class="d-block">Id de Item:</label>
+            <input
+              type="text"
+              class="form-control w-100"
+              formControlName="id"
+              required
+            />
+            <label class="d-block">Tipo de mantenimiento a solicitar</label>
+            <select class="form-control w-100" formControlName="tipo" required>
+                 <option selected>---</option>
+                 <option [value]="'correctivo'">correctivo</option>
+                 <option [value]="'preventivo'">preventivo</option>
+            </select>
+            <button type="button" (click)="enviarMantenimiento()" class="btn btn-success mt-3">Enviar</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,44 @@
+<body class="text-center">
+  <main class="form-signin w-100 m-auto">
+    <div *ngIf="!carga">
+    <form (ngSubmit)="Login()" [formGroup]="AccesoUsuario">
+      <img
+        class="mb-4"
+        src="https://d3g4v0cf6ioz32.cloudfront.net/itspozarica/Escudos/ae67f6b2_187d_42d8_8b83_8c36173590863.png"
+        alt=""
+        width="250"
+        height="200"
+      />
+      <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+      <div class="form-floating">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="numcontrol@itspozarica.edu.mx"
+          formControlName="email"
+        />
+        <label for="floatingInput">Correo</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <label for="floatingPassword">Contraseña</label>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">
+        Inicia Sesion
+      </button>
+      <p>Olvido su contraseña: <a a routerLink="/recuperarcontraseña" class="link-primary">Recuperar contraseña</a></p>
+      <p class="mt-5 mb-3 text-muted">&copy; BravikiSoluciones 2022</p>
+    </form>
+  </div>
+  <app-spinner *ngIf="carga"></app-spinner>
+  </main>
+</body>

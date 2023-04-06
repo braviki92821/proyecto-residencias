@@ -1,0 +1,644 @@
+<nav class="nav nav-tabs nav-fill mt-3">
+  <a class="flex-sm-fill text-sm-center nav-link active disabled" aria-current="page">Registrar</a>
+  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/menu-consultar']">Consultar</a>
+  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/mantenimientos']">Mantenimientos</a>
+</nav>
+
+<main class="form-signin w-100 m-auto">
+  <h1 class="h3 mb-3 mt-3 fw-normal container-md">{{ titulo }} Inventario</h1>
+
+  <div class="container-md">
+    <form *ngIf="formsc" [formGroup]="select">
+      <div class="form-floating">
+        <select formControlName="selecc"  class="form-select" aria-label="Floating label select example" id="floatingSelect">
+          <option selected disabled>--Selecciona una categoria</option>
+          <option [value]="'mueble'">Inmuebles</option>
+          <option [value]="'computadoras'">Computadoras</option>
+          <option [value]="'monitores'">Monitores</option>
+          <option [value]="'climas'">Climas</option>
+          <option [value]="'proyectores'">Proyectores</option>
+        </select>
+        <label for="floatingSelect">Selecciona una categoria</label>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="select.value.selecc === 'computadoras'" class="container-md border border-dark m-3 p-3 mx-auto">
+    <form [formGroup]="FormC" class="was-validated">
+      <div class="form-group">
+        <label for="floatingInput" class="d-block">PlacaMadre:</label>
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="Modelo de la placa madre"
+          formControlName="PlacaMadre"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="floatingInput" class="d-block">Procesador:</label>
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="modelo del procesador"
+          formControlName="Procesador"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="floatingPassword" class="d-block"> DiscoDuro:</label>
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="Capacidad de almacenamiento"
+          formControlName="DiscoDuro"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="floatingInput" class="d-block">Ram:</label>
+        <select
+          type="value"
+          class="form-control w-100"
+          aria-label="Default select example"
+          formControlName="Ram"
+          required
+        >
+          <option disabled selected>---</option>
+          <option [value]="'4 Gb Single Chanel'">4 Gb Single Chanel</option>
+          <option [value]="'4 Gb Dual Chanel'">4 Gb Dual Chanel</option>
+          <option [value]="'4 Gb Quad Chanel'">4 Gb Quad Chanel</option>
+          <option [value]="'8 Gb Single Chanel'">8 Gb Single Chanel</option>
+          <option [value]="'8 Gb Dual Chanel'">8 Gb Dual Chanel</option>
+          <option [value]="'8 Gb Quad Chanel'">8 Gb Quad Chanel</option>
+          <option [value]="'16 Gb Single Chanel'">16 Gb Single Chanel</option>
+          <option [value]="'16 Gb Dual Chanel'">16 Gb Dual Chanel</option>
+          <option [value]="'16 Gb Quad Chanel'">16 Gb Quad Chanel</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="floatingInput" class="d-block">Sistema Operativo:</label>
+        <select
+          type="value"
+          class="form-control w-100"
+          aria-label="Default select example"
+          formControlName="SO"
+          required
+        >
+          <option disabled selected>---</option>
+          <option [value]="'Windows 7 Started'">Windows 7 Started</option>
+          <option [value]="'Windows 7 Home Basic'">Windows 7 Home Basic</option>
+          <option [value]="'Windows 7 Home Premium'">
+            Windows 7 Home Premium
+          </option>
+          <option [value]="'Windows 7 Professional'">
+            Windows 7 Professional
+          </option>
+          <option [value]="'Windows 7 Enterprise'">Windows 7 Enterprise</option>
+          <option [value]="'Windows 7 Ultimate'">Windows 7 Ultimate</option>
+          <option [value]="'Windows 8'">Windows 8</option>
+          <option [value]="'Windows 8 Pro'">Windows 8 Pro</option>
+          <option [value]="'Windows 8 Empresarial'">
+            Windows 8 Empresarial
+          </option>
+          <option [value]="'Windows 8 RT'">Windows 8 RT</option>
+          <option [value]="'Windows 10 Home'">Windows 10 Home</option>
+          <option [value]="'Windows 10 Pro'">Windows 10 Pro</option>
+          <option [value]="'Windows 10 Enterprise'">
+            Windows 10 Enterprise
+          </option>
+          <option [value]="'Windows 10 Education'">Windows 10 Education</option>
+          <option [value]="'Windows 11'">Windows 11</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="floatingInput" class="d-block">Costo:</label>
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="colocar el precio sin signo de $"
+          formControlName="Costo"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="floatingInput" class="d-block">Edificio:</label>
+        <select
+          type="value"
+          class="form-control w-100"
+          aria-label="Default select example"
+          formControlName="edificio"
+          required
+        >
+          <option selected>---</option>
+          <option [value]="'Edificio 1'">Edificio 1</option>
+          <option [value]="'Edificio 2'">Edificio 2</option>
+          <option [value]="'Edificio 3'">Edificio 3</option>
+          <option [value]="'Edificio 4'">Edificio 4</option>
+          <option [value]="'Edificio 5'">Edificio 5</option>
+          <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+          <option [value]="'Cubiculos'">Cubiculos</option>
+          <option [value]="'gallineros'">gallineros</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+        <input
+          type="text"
+          class="form-control w-100"
+          placeholder="Ejemplo Aula 0-00, oficinas, laborotorio de computo"
+          formControlName="lugar_edificio"
+          required
+        />
+      </div>
+
+      <button
+        *ngIf="buttreg"
+        class="btn btn-success mt-3"
+        (click)="RegistrarCompu()"
+        type="submit">
+        Registrar Computadora
+      </button>
+
+      <button *ngIf="butted" class="btn btn-success mt-3" (click)="actualizarCompu()" type="submit">
+        Editar Computadora
+      </button>
+    </form>
+    
+  </div>
+
+  <div *ngIf="select.value.selecc === 'mueble'" class="container-md border border-dark m-3 p-3 mx-auto">
+    <form [formGroup]="FormM" class="was-validated">
+      <label for="floatingInput" class="d-block">Nombre:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder="ejemplo modelo de la silla + el aula,nombre del mueble"
+        formControlName="nombre"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Marca:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder="escribir nombre de la tienda o marca si existe"
+        formControlName="marca"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">caracteristicas:</label>
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        formControlName="caracteristicas"
+        required
+      ></textarea>
+
+      <label for="floatingInput" class="d-block">Costo:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder="coloque el precio sin signo de $"
+        formControlName="Costo"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Edificio:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Floating label select example"
+        formControlName="edificio"
+        required
+      >
+        <option disabled selected>---</option>
+        <option [value]="'Edificio 1'">Edificio 1</option>
+        <option [value]="'Edificio 2'">Edificio 2</option>
+        <option [value]="'Edificio 3'">Edificio 3</option>
+        <option [value]="'Edificio 4'">Edificio 4</option>
+        <option [value]="'Edificio 5'">Edificio 5</option>
+        <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+        <option [value]="'Cubiculos'">Cubiculos</option>
+        <option [value]="'gallineros'">gallineros</option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder="ejemplo aula-00, pasillo 1ra planta, oficinas, laborotorios etc"
+        formControlName="lugar_edificio"
+        required
+      />
+      <label for="floatingInput" class="d-block">Tipo de mueble:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Floating label select example"
+        formControlName="tipo"
+        required
+      >
+        <option disabled selected>---</option>
+        <option [value]="'mesabancos'">Mesabanco</option>
+        <option [value]="'escritorios'">Escritorio</option>
+        <option [value]="'sillas'">Sillas</option>
+        <option [value]="'estanterias'">Estanteria</option>
+        <option [value]="'mesas'">Mesa Escolar</option>
+        <option [value]="'pizarrones'">Pizarron</option>
+      </select>
+
+      <button
+        *ngIf="buttreg"
+        class="btn btn-success mt-3"
+        (click)="RegistrarMuebles()"
+        type="submit"
+      >
+        Registrar Mueble
+      </button>
+
+      <button
+        *ngIf="butted"
+        class="btn btn-success mt-3"
+        (click)="actualizarMueble()"
+        type="submit"
+      >
+        Editar Mueble
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="select.value.selecc === 'monitores'" class="container-md border border-dark m-3 p-3 mx-auto">
+    <form [formGroup]="FormMon" class="was-validated">
+      <label for="floatingInput" class="d-block">Modelo:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder="modelo del monitore viene en el manual o garantia"
+        formControlName="nombre"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Marca:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Default select example"
+        formControlName="marca"
+        required
+      >
+        <option [value]="'Epson'">Epson</option>
+        <option [value]="'Hp'">Hp</option>
+        <option [value]="'LG'">LG</option>
+        <option [value]="'Lenovo'">Lenovo</option>
+        <option [value]="'BENQ'">BENQ</option>
+        <option [value]="'Sony'">Sony</option>
+        <option [value]="'Asus'">Asus</option>
+        <option [value]="'Acer'">Acer</option>
+        <option [value]="'Samsung'">Samsung</option>
+        <option [value]="'Dell'">Dell</option>
+        <option [value]="'MSI'">MSI</option>
+        <option [value]="'AOC'">AOC</option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Tipo de entrada:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Floating label select example"
+        formControlName="tipoentrada"
+        required
+      >
+        <option [value]="'VGA'">VGA</option>
+        <option [value]="'HDMI'">HDMI</option>
+        <option [value]="'DVI'">DVI</option>
+        <option [value]="'DisplayPort'">DisplayPort</option>
+        <option [value]="'VGA y HDMI'">VGA y HDMI</option>
+        <option [value]="'VGA, HDMI, DVI y DisplayPort'">
+          VGA, HDMI, DVI y DisplayPort
+        </option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Hz:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Default select example"
+        formControlName="hz"
+        required
+      >
+        <option [value]="'60Hz'">60Hz</option>
+        <option [value]="'75Hz'">75Hz</option>
+        <option [value]="'120Hz'">120Hz</option>
+        <option [value]="'144Hz'">144Hz</option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Resolucion:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Default select example"
+        formControlName="resolucion"
+        required
+      >
+        <option disabled selected>---</option>
+        <option [value]="'1280 X 720 px'">1280 X 720 px</option>
+        <option [value]="'1366 X 768 px'">1366 X 768 px</option>
+        <option [value]="'1440 X 900 px'">1440 X 900 px</option>
+        <option [value]="'1600 X 900 px'">1600 X 900 px</option>
+        <option [value]="'1680 X 1050 px'">1680 X 1050 px</option>
+        <option [value]="'1920 X 1080 px'">1920 X 1080 px</option>
+        <option [value]="'1920 X 1200 px'">1920 X 1200 px</option>
+        <option [value]="'2560 X 1440 px'">2560 X 1440 px</option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Costo:</label>
+      <input
+        type="number"
+        class="form-control w-100"
+        placeholder="coloque el precio sin signo de $"
+        formControlName="Costo"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Edificio:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Default select example"
+        formControlName="edificio"
+        required
+      >
+        <option disabled selected>---</option>
+        <option [value]="'Edificio 1'">Edificio 1</option>
+        <option [value]="'Edificio 2'">Edificio 2</option>
+        <option [value]="'Edificio 3'">Edificio 3</option>
+        <option [value]="'Edificio 4'">Edificio 4</option>
+        <option [value]="'Edificio 5'">Edificio 5</option>
+        <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+        <option [value]="'Cubiculos'">Cubiculos</option>
+        <option [value]="'gallineros'">gallineros</option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder="ejemplo oficinas,laborotoriosm,etc"
+        formControlName="lugar_edificio"
+        required
+      />
+
+      <button
+        *ngIf="buttreg"
+        class="btn btn-success mt-3"
+        (click)="RegistrarMonitores()"
+        type="submit"
+      >
+        Registrar Monitor
+      </button>
+
+      <button
+        *ngIf="butted"
+        class="btn btn-success mt-3"
+        (click)="actualizarMonitor()"
+        type="submit"
+      >
+        Editar Monitor
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="select.value.selecc === 'proyectores'" class="container-md border border-dark m-3 p-3 mx-auto">
+    <form [formGroup]="FormProy" class="was-validated">
+      <label for="floatingInput" class="d-block">Modelo:</label>
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder=""
+        formControlName="nombre"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Marca:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder=""
+        formControlName="marca"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Tipo de entrada:</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Default select example"
+        formControlName="tipoentrada"
+        required
+      >
+        <option [value]="'VGA'">VGA</option>
+        <option [value]="'HDMI'">HDMI</option>
+        <option [value]="'DVI'">DVI</option>
+        <option [value]="'DisplayPort'">DisplayPort</option>
+        <option [value]="'VGA y HDMI'">VGA y HDMI</option>
+        <option [value]="'VGA, HDMI, DVI y DisplayPort'">
+          VGA, HDMI, DVI y DisplayPort
+        </option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Costo:</label>
+      <input
+        type="number"
+        class="form-control w-100"
+        placeholder=""
+        formControlName="Costo"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Edificio:</label>
+      <select
+        for="edificio"
+        type="value"
+        class="form-control w-100"
+        aria-label="Default select example"
+        formControlName="edificio"
+        required
+      >
+        <option disabled selected>---</option>
+        <option [value]="'Edificio 1'">Edificio 1</option>
+        <option [value]="'Edificio 2'">Edificio 2</option>
+        <option [value]="'Edificio 3'">Edificio 3</option>
+        <option [value]="'Edificio 4'">Edificio 4</option>
+        <option [value]="'Edificio 5'">Edificio 5</option>
+        <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+        <option [value]="'Cubiculos'">Cubiculos</option>
+        <option [value]="'gallineros'">gallineros</option>
+      </select>
+
+      <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder=""
+        formControlName="lugar_edificio"
+        required
+      />
+
+      <button
+        *ngIf="buttreg"
+        class="btn btn-success mt-3"
+        (click)="RegistrarProyector()"
+        type="submit"
+      >
+        Registrar Proyector
+      </button>
+
+      <button
+        *ngIf="butted"
+        class="btn btn-success mt-3"
+        (click)="actualizarProyector()"
+        type="submit"
+      >
+        Editar Proyector
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="select.value.selecc === 'climas'" class="container-md border border-dark m-3 p-3 mx-auto">
+    <form [formGroup]="FormCl" class="was-validated">
+      <label for="floatingInput" class="d-block">Nombre:</label>
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder="nombre del producto"
+        formControlName="nombre"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Modelo:</label>
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder="modelo del producto suele venir en el manual o en la garantia"
+        formControlName="modelo"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Capacidad de enfriamiento (kbtu h):</label>
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder="numero BTU ejemplo 500 BTU"
+        formControlName="capacidade"
+        required
+      />
+
+      <label for="floatingInput" class="d-block"
+        >Capacidad / tamaño (en toneladas):</label
+      >
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder="X toneladas"
+        formControlName="capacidadt"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Consumo:</label>
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder="cantidadV"
+        formControlName="consumo"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Ancho y alto:</label>
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder="Xcm ancho Xcm alto"
+        formControlName="alto_ancho"
+        required
+      />
+
+      <label for="floatingInput" class="d-block">Costo:</label>
+      <input
+        for="nombre"
+        type="text"
+        class="form-control w-100"
+        placeholder="coloque el precio sin signo de $"
+        formControlName="Costo"
+        required
+      />
+
+      <div>
+        <label for="floatingInput" class="d-block">Edificio:</label>
+        <select
+          type="value"
+          class="form-control w-100"
+          aria-label="Default select example"
+          formControlName="edificio"
+          required
+        >
+          <option disabled selected>---</option>
+          <option [value]="'Edificio 1'">Edificio 1</option>
+          <option [value]="'Edificio 2'">Edificio 2</option>
+          <option [value]="'Edificio 3'">Edificio 3</option>
+          <option [value]="'Edificio 4'">Edificio 4</option>
+          <option [value]="'Edificio 5'">Edificio 5</option>
+          <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+          <option [value]="'Cubiculos'">Cubiculos</option>
+          <option [value]="'gallineros'">gallineros</option>
+        </select>
+        <div id="validationServer04Feedback" class="invalid-feedback">
+          Por favor seleccione un edificio.
+        </div>
+      </div>
+
+      <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        placeholder="Ejemplo Aula 0-00, pasillo 1ra planta, baños 1ra planta, entrada, etc"
+        formControlName="lugar_edificio"
+        required
+      />
+
+      <button
+        *ngIf="buttreg"
+        class="btn btn-success mt-3"
+        (click)="RegistrarClima()"
+        type="submit"
+      >
+        Registrar Clima
+      </button>
+
+      <button
+        *ngIf="butted"
+        class="btn btn-success mt-3"
+        (click)="actualizarClima()"
+        type="submit"
+      >
+        Editar Clima
+      </button>
+    </form>
+  </div>
+  
+</main>

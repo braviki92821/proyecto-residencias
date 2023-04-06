@@ -1,0 +1,66 @@
+<nav class="nav nav-pills flex-column flex-sm-row mt-3">
+  <a
+    class="flex-sm-fill text-sm-center nav-link active disabled"
+    aria-current="page"
+    >Registrar</a
+  >
+  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/consultar']"
+    >Consultar</a
+  >
+  <a class="flex-sm-fill text-sm-center nav-link">ver garantias</a>
+  <a class="flex-sm-fill text-sm-center nav-link">Mantenimientos</a>
+</nav>
+
+<h1 class="h1 mb-4 mt-3 fw-normal container-md">
+  Generar Qr y agregar al Item
+</h1>
+
+<div class="container-md border border-dark m-3 p-3 mx-auto">
+  <h3>Intrucciones</h3>
+  <p>
+    -El siguiente Qr que se esta mostrando es el que sera usado para ser
+    escaneado por la app movil y consultar los datos del Item
+  </p>
+  <p>
+    -Para añadirlo a la base de datos debe descargar en el enlace que dice
+    "descargar qr"
+  </p>
+  <p>
+    -Una vez descargado seleccione el archivo descargado (en la carpeta
+    descargas)
+  </p>
+  <p>
+    -asegurese de que el nombre del archivo sea el mismo que el que aparece
+    debajo del qr mostrado
+  </p>
+  <p>
+    -cuando lo seleccione de click en el boton abrir y de click en el boton
+    Guardar Qr
+  </p>
+  <p>-despues sera redirigido a la pagina de consultar</p>
+  <qrcode
+    class="img-fluid text-center"
+    (qrCodeURL)="qr($event)"
+    qrdata="{{ id }}"
+    [width]="400"
+  ></qrcode>
+  <p class="text-center">{{ id }}</p>
+
+  <a class="btn btn-success mt-3" [href]="url" download="{{ id }}"
+    >descargar Qr</a
+  >
+  <div class="mb-3">
+    <label for="formFileSm" class="form-label mt-3"
+      >Seleccione el Qr descargado</label
+    >
+    <input
+      (change)="subir($event)"
+      class="form-control form-control-sm"
+      id="formFileSm"
+      type="file"
+      accept="image/png"
+      required
+    />
+  </div>
+  <button class="btn btn-success mt-1" (click)="upload()">Guardar Qr</button>
+</div>

@@ -1,0 +1,40 @@
+<nav class="nav nav-pills flex-column flex-sm-row mt-3">
+  <a
+    class="flex-sm-fill text-sm-center nav-link"
+    [routerLink]="['/registro']"
+    aria-current="page"
+    >Registrar</a
+  >
+  <a class="flex-sm-fill text-sm-center nav-link active disabled">Consultar</a>
+</nav>
+<div class="container-md border border-dark m-2 p-2 mx-auto">
+  <h1 class="h3 mb-3 mt-3 fw-normal container-md">Consultar Inventarios</h1>
+  <div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Matricula</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Tipo Usuario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let consult of consultausers">
+        <tr >
+            <td> <input type="text" class="form-control border-0 transparent-input" #matricula value="{{consult.Matricula}}"></td>
+            <td> <input type="text" class="form-control border-0 transparent-input" #nombre value="{{consult.Nombre}}"></td>
+            <td>{{consult.Email}}</td>
+            <td>{{consult.Password}}</td>
+            <td>{{consult.TipoUsuario}}</td>
+            <td><div class="row row-cols-sm-1 row-cols-md-2">
+                  <div class="col mt-3"><button class="btn btn-primary" (click)="modificarUsuario(consult.id,matricula.value,nombre.value)">Modificar</button></div>
+                  <div class="col mt-3"><button class="btn btn-danger" (click)="eliminarUsuario(consult.id)">Eliminar</button></div>
+                </div>
+           </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+</div>

@@ -1,0 +1,393 @@
+<div class="container-md border border-dark m-3 p-3 mx-auto">
+    <h3>Scannear Qr</h3>
+  <ngx-scanner-qrcode
+    #action="scanner"
+    (event)="onEvent($event)"
+    (error)="onError($event)"
+  ></ngx-scanner-qrcode>
+
+  <!-- data  -->
+  <label for="floatingInput" class="d-block">Id del Item:</label>
+  <form class="was-validated" >
+  <input
+    type="text"
+    class="form-control w-100"
+    value="{{ data }}"
+    disabled
+    required
+  />
+</form>
+
+  <!-- Loading -->
+  <p *ngIf="action.isLoading">⌛ Loading...</p>
+  <div class="d-flex justify-content-evenly">
+        <button class="mt-3" [disabled]="action.isLoading">
+          <a class="btn btn-success" *ngIf="!action.isStart" (click)="handle(action, 'start')">Escanear</a>
+          <a *ngIf="action.isStart" (click)="handle(action, 'stop')" class="btn btn-danger">Dejar de scannear</a>
+        </button>
+
+        <button class="btn btn-success mt-3" (click)="consultar('{{data}}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Consultar</button>
+
+        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#ReporteModal">Reportar</button>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Datos del Id:</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormM" *ngIf="tipo=='mueble'">
+                    <label for="floatingInput" class="d-block">Nombre:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="nombre"
+                    />
+              
+                    <label for="floatingInput" class="d-block">Marca:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="marca"
+                    />
+                    <label for="floatingInput" class="d-block">caracteristicas:</label>
+                    <textarea
+                      class="form-control"
+                      id="exampleFormControlTextarea1"
+                      rows="3"
+                      formControlName="caracteristicas"
+                      required
+                    ></textarea>
+                    <label for="floatingInput" class="d-block">Edificio:</label>
+                    <select
+                      type="value"
+                      class="form-control w-100"
+                      aria-label="Floating label select example"
+                      formControlName="edificio"
+                    >
+                      <option disabled selected>---</option>
+                      <option [value]="'Edificio 1'">Edificio 1</option>
+                      <option [value]="'Edificio 2'">Edificio 2</option>
+                      <option [value]="'Edificio 3'">Edificio 3</option>
+                      <option [value]="'Edificio 4'">Edificio 4</option>
+                      <option [value]="'Edificio 5'">Edificio 5</option>
+                      <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+                      <option [value]="'Cubiculos'">Cubiculos</option>
+                      <option [value]="'gallineros'">gallineros</option>
+                    </select>
+              
+                    <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      formControlName="lugar_edificio"
+                    />
+                </form>
+
+
+                <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormC" *ngIf="tipo=='computadoras'">
+                    <label for="floatingInput" class="d-block">PlacaMadre:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="PlacaMadre"
+                    />
+
+                    <label for="floatingInput" class="d-block">Procesador:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="Procesador"
+                    />
+
+                    <label for="floatingPassword" class="d-block"> DiscoDuro:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="DiscoDuro"
+                    />
+
+                    <label for="floatingInput" class="d-block">Edificio:</label>
+                    <select
+                      type="value"
+                      class="form-control w-100"
+                      aria-label="Default select example"
+                      formControlName="edificio"
+                    >
+                      <option selected>---</option>
+                      <option [value]="'Edificio 1'">Edificio 1</option>
+                      <option [value]="'Edificio 2'">Edificio 2</option>
+                      <option [value]="'Edificio 3'">Edificio 3</option>
+                      <option [value]="'Edificio 4'">Edificio 4</option>
+                      <option [value]="'Edificio 5'">Edificio 5</option>
+                      <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+                      <option [value]="'Cubiculos'">Cubiculos</option>
+                      <option [value]="'gallineros'">gallineros</option>
+                    </select>
+
+                    <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="lugar_edificio"
+                    />
+                </form>
+
+                
+                <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormCl" *ngIf="tipo=='climas'">
+                    <label for="floatingInput" class="d-block">Nombre:</label>
+                    <input
+                      for="nombre"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="nombre"
+                    />
+              
+                    <label for="floatingInput" class="d-block">Modelo:</label>
+                    <input
+                      for="nombre"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="modelo"
+                    />
+                    <label for="floatingInput" class="d-block">Consumo:</label>
+                    <input
+                      for="nombre"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="consumo"
+                    />
+                    <label for="floatingInput" class="d-block">Ancho:</label>
+                    <input
+                      for="nombre"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="alto_ancho"
+                    />
+                    <label for="floatingInput" class="d-block">Edificio:</label>
+                    <select
+                      type="value"
+                      class="form-control w-100"
+                      aria-label="Default select example"
+                      formControlName="edificio"
+                    >
+                      <option disabled selected>---</option>
+                      <option [value]="'Edificio 1'">Edificio 1</option>
+                      <option [value]="'Edificio 2'">Edificio 2</option>
+                      <option [value]="'Edificio 3'">Edificio 3</option>
+                      <option [value]="'Edificio 4'">Edificio 4</option>
+                      <option [value]="'Edificio 5'">Edificio 5</option>
+                      <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+                      <option [value]="'Cubiculos'">Cubiculos</option>
+                      <option [value]="'gallineros'">gallineros</option>
+                    </select>
+                    <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="lugar_edificio"
+                    />              
+                </form>
+
+                
+                <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormMon" *ngIf="tipo=='monitores'">
+                    
+                    <label for="floatingInput" class="d-block">Modelo:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="nombre"
+                    />
+              
+                    <label for="floatingInput" class="d-block">Marca:</label>
+                    <select
+                      type="value"
+                      class="form-control w-100"
+                      aria-label="Default select example"
+                      formControlName="marca"
+                    >
+                      <option [value]="'Epson'">Epson</option>
+                      <option [value]="'Hp'">Hp</option>
+                      <option [value]="'LG'">LG</option>
+                      <option [value]="'Lenovo'">Lenovo</option>
+                      <option [value]="'BENQ'">BENQ</option>
+                      <option [value]="'Sony'">Sony</option>
+                      <option [value]="'Asus'">Asus</option>
+                      <option [value]="'Acer'">Acer</option>
+                      <option [value]="'Samsung'">Samsung</option>
+                      <option [value]="'Dell'">Dell</option>
+                      <option [value]="'MSI'">MSI</option>
+                      <option [value]="'AOC'">AOC</option>
+                    </select>
+                    <label for="floatingInput" class="d-block">Edificio:</label>
+                    <select
+                      type="value"
+                      class="form-control w-100"
+                      aria-label="Default select example"
+                      formControlName="edificio"
+                    >
+                      <option disabled selected>---</option>
+                      <option [value]="'Edificio 1'">Edificio 1</option>
+                      <option [value]="'Edificio 2'">Edificio 2</option>
+                      <option [value]="'Edificio 3'">Edificio 3</option>
+                      <option [value]="'Edificio 4'">Edificio 4</option>
+                      <option [value]="'Edificio 5'">Edificio 5</option>
+                      <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+                      <option [value]="'Cubiculos'">Cubiculos</option>
+                      <option [value]="'gallineros'">gallineros</option>
+                    </select>
+              
+                    <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="lugar_edificio"
+                    />
+                </form>
+
+                
+                <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormProy" *ngIf="tipo=='proyectores'">
+                    <label for="floatingInput" class="d-block">Modelo:</label>
+                    <input
+                      for="nombre"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="nombre"
+                      required
+                    />
+              
+                    <label for="floatingInput" class="d-block">Marca:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="marca"
+                      required
+                    />
+              
+                    <label for="floatingInput" class="d-block">Tipo de entrada:</label>
+                    <select
+                      type="value"
+                      class="form-control w-100"
+                      aria-label="Default select example"
+                      formControlName="tipoentrada"
+                      required
+                    >
+                      <option [value]="'VGA'">VGA</option>
+                      <option [value]="'HDMI'">HDMI</option>
+                      <option [value]="'DVI'">DVI</option>
+                      <option [value]="'DisplayPort'">DisplayPort</option>
+                      <option [value]="'VGA y HDMI'">VGA y HDMI</option>
+                      <option [value]="'VGA, HDMI, DVI y DisplayPort'">
+                        VGA, HDMI, DVI y DisplayPort
+                      </option>
+                    </select>
+                    <label for="floatingInput" class="d-block">Edificio:</label>
+                    <select
+                      for="edificio"
+                      type="value"
+                      class="form-control w-100"
+                      aria-label="Default select example"
+                      formControlName="edificio"
+                      required
+                    >
+                      <option disabled selected>---</option>
+                      <option [value]="'Edificio 1'">Edificio 1</option>
+                      <option [value]="'Edificio 2'">Edificio 2</option>
+                      <option [value]="'Edificio 3'">Edificio 3</option>
+                      <option [value]="'Edificio 4'">Edificio 4</option>
+                      <option [value]="'Edificio 5'">Edificio 5</option>
+                      <option [value]="'Edificio de Cristal'">Edificio de Cristal</option>
+                      <option [value]="'Cubiculos'">Cubiculos</option>
+                      <option [value]="'gallineros'">gallineros</option>
+                    </select>
+              
+                    <label for="floatingInput" class="d-block">Lugar Edificio:</label>
+                    <input
+                      type="text"
+                      class="form-control w-100"
+                      placeholder=""
+                      formControlName="lugar_edificio"
+                      required
+                    />
+                </form>
+              <!--<img [src]="foto"  width="100px" height="100px" alt="">--> 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="modal fade" id="ReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Reporte</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="container-md border border-dark m-3 p-3 mx-auto was-validated" [formGroup]="FormRep">
+                <label for="floatingInput" class="d-block">Id de Item a reportar:</label>
+                <input
+                  type="text"
+                  class="form-control w-100"
+                  value="{{data}}"
+                  formControlName="id"
+                  required
+                />
+                <label for="floatingInput" class="d-block">Autor:</label>
+                <input
+                  type="text"
+                  class="form-control w-100"
+                  value="{{nusuario}}"
+                  formControlName="autor"
+                  required
+                />
+                <label for="floatingInput" class="d-block">descripcion del problema o asunto:</label>
+                <textarea
+                  class="form-control w-100"
+                  rows="3"
+                  formControlName="descripcion"
+                  required
+                ></textarea>
+
+                <label class="d-block">Tipo de reporte</label>
+                <input type="text" *ngIf="tusuario=='Alumno'" [value]="'averia'" class="form-control w-100" formControlName="tipo">
+                <select *ngIf="tusuario=='Administrador'" class="form-control w-100" formControlName="tipo" required>
+                     <option selected>---</option>
+                     <option [value]="'averia'">averia</option>
+                     <option [value]="'preventivo'">preventivo</option>
+                </select>
+
+
+                <button type="button" class="btn btn-primary mt-3" (click)="enviarReporte()">Enviar reporte</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>

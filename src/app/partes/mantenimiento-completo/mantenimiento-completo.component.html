@@ -1,0 +1,62 @@
+<nav class="nav nav-pills flex-column flex-sm-row mt-3">
+    <a class="flex-sm-fill text-sm-center nav-link " [routerLink]="['/registrar-inventario']" aria-current="page">Registrar</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/consultar']">Consultar</a>
+    <a class="flex-sm-fill text-sm-center nav-link active disabled" >Mantenimientos</a>
+  </nav>
+<h1 class="h1 mb-4 mt-3 fw-normal container-md"> Completar mantenimiento</h1>
+  
+  <div class="container-md border border-dark m-3 p-3 mx-auto">
+    <h3>Intrucciones</h3>
+    <p>-cuando el encargado o la empresa responsable de Mantenimientos halla finalizado el mantenimiento y entregado el reporte subir el archivo</p>
+    <p>-y coloque los datos del siguiente formulario</p>
+    <div class="mb-3">
+        <form class="was-validated" [formGroup]="form">
+            <label for="floatingInput" class="d-block"
+              >Num Poliza(si la garantia no tiene numero de poliza coloque S/N):</label
+            >
+
+            <label for="floatingInput" class="d-block">Costo:</label>
+            <input
+              for="nombre"
+              type="text"
+              class="form-control w-100"
+              placeholder=""
+              formControlName="costo"
+              required
+            />
+
+            <label for="floatingInput" class="d-block">Fecha de terminacion del mantenimiento:</label>
+                <input
+                  for="fechat"
+                  type="date"
+                  class="form-control w-100"
+                  placeholder="dd-mm-yyyy"
+                  formControlName="fechat"
+                  required
+                />
+            
+            <label
+              for="formFileSm"
+              class="form-label mt-3"
+              >Seleccione el archivo pdf</label
+            >
+            <input
+              (change)="subir($event)"
+              class="form-control form-control-sm"
+              id="formFileSm"
+              type="file"
+              accept="application/pdf"
+              required
+            />
+        
+            <button
+              class="btn btn-success mt-3"
+              (click)="finalizarMantenimiento()"
+              type="submit"
+            >
+              Guardar 
+            </button>
+
+          </form>
+    </div>
+  </div>

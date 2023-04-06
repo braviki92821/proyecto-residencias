@@ -1,0 +1,80 @@
+<nav class="nav nav-tabs nav-fill mt-3">
+    <a class="flex-sm-fill text-sm-center nav-link " [routerLink]="['/registrar-inventario']" aria-current="page">Registrar</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/menu-consultar']">Consultar</a>
+    <a class="flex-sm-fill text-sm-center nav-link active disabled" >Mantenimientos</a>
+  </nav>
+  <h1 class="h3 mb-3 mt-3 fw-normal container-md">Mantenimientos</h1>
+<div class="container-md">
+<form [formGroup]="select">
+    <div class="form-floating">
+      <select
+        formControlName="selecc"
+        (change)="cambio()"
+        class="form-select"
+        aria-label="Floating label select example"
+      >
+        <option disabled selected>--Selecciona una categoria</option>
+        <option [value]="'preventivo'">preventivo</option>
+        <option [value]="'correctivo'">correctivo</option>
+      </select>
+      <label for="floatingSelect">Selecciona una categoria</label>
+    </div>
+  </form>
+
+</div>
+<div class="container-md border border-dark m-3 p-3 mx-auto ">
+
+    <div *ngIf="cat == 'preventivo'" class="table-responsive mt-4 container-md mx-auto">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Item</th>
+                <th>Costo</th>
+                <th>Fecha de solicitud</th>
+                <th>Fecha de terminacion</th>
+                <th>Tipo</th>
+                <th>Reporte</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let consult of mant">
+                <td>{{consult.Item}}</td>
+                <td>{{consult.costo}}</td>
+                <td>{{consult.fechaS}}</td>
+                <td>{{consult.fechaT}}</td>
+                <td>{{consult.tipo}}</td>
+                <td>{{consult.reporte}}</td>
+                <td><button *ngIf="consult.reporte==''" class="btn btn-success" [routerLink]="['/completar-mantenimiento/',consult.id,consult.Item]" >completar si ya finalizo mantenimiento</button></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+<div *ngIf="cat == 'correctivo'" class="table-responsive mt-4 container-md mx-auto">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Item</th>
+                <th>Costo</th>
+                <th>Fecha de solicitud</th>
+                <th>Fecha de terminacion</th>
+                <th>Tipo</th>
+                <th>Reporte</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let consult of mant">
+                <td>{{consult.Item}}</td>
+                <td>{{consult.costo}}</td>
+                <td>{{consult.fechaS}}</td>
+                <td>{{consult.fechaT}}</td>
+                <td>{{consult.tipo}}</td>
+                <td>{{consult.reporte}}</td>
+                <td><button *ngIf="consult.reporte==''" class="btn btn-success" [routerLink]="['/completar-mantenimiento/',consult.id,consult.Item]">completar si ya finalizo mantenimiento</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

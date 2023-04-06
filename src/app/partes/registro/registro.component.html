@@ -1,0 +1,67 @@
+<nav class="nav nav-pills flex-column flex-sm-row mt-3">
+  <a
+    class="flex-sm-fill text-sm-center nav-link active disabled"
+    aria-current="page"
+    >Registrar</a
+  >
+  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/usuarios']">Consultar</a>
+</nav>
+
+<div class="container-md border border-dark m-4 p-3 mx-auto">
+  <h3 class="h3">Registrar Usuarios</h3>
+  <div *ngIf="!carga">
+    <form (ngSubmit)="registrar()" [formGroup]="registrarUsuario" class="was-validated">
+      <label for="floatingInput" class="d-block mt-2">Matricula:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        formControlName="matricula"
+        placeholder="ejem 000P333"
+        required
+      />
+      
+
+      <label for="floatingInput" class="d-block mt-2">Nombre:</label>
+      <input
+        type="text"
+        class="form-control w-100"
+        formControlName="nombre"
+        placeholder="Juan Perez"
+        required
+      />
+
+      <label for="floatingInput" class="d-block mt-2">Email:</label>
+      <input
+        type="email"
+        class="form-control w-100"
+        formControlName="email"
+        placeholder="name@itspozarica.edu.mx"
+        required
+      />
+      <label for="floatingSelect" class="d-block mt-2">Selecciona cargo del usuario</label>
+      <select type="value" class="form-control w-100" aria-label="Default select example" formControlName="cargo" required>
+        <option disabled>---</option>
+        <option [value]="'Administrador'" selected>Administrativo</option>
+        <option [value]="'Alumno'">Alumno</option>
+        <option [value]="'Conductor'">Otro</option>
+      </select>
+
+      <label for="floatingSelect" class="d-block mt-2">Selecciona un tipo de usuario</label>
+      <select
+        type="value"
+        class="form-control w-100"
+        aria-label="Default select example"
+        formControlName="tpusuario"
+        required
+      >
+        <option disabled selected>---</option>
+        <option [value]="'Administrador'">Administrador</option>
+        <option [value]="'Alumno'">Alumno</option>
+        <option [value]="'Conductor'">Conductor</option>
+      </select>
+
+      <button class="btn btn-success mt-3" type="submit">Registrar</button>
+    </form>
+  </div>
+  <app-spinner *ngIf="carga"></app-spinner>
+</div>

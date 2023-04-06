@@ -1,0 +1,382 @@
+<div class="mb-3 mt-3 fw-normal container-md">
+  <button class="btn btn-primary btn-sm" [routerLink]="'/menu-consultar'">Regresar</button>
+  <h1 class="h3">Consultar {{tipo}}</h1>
+  <div *ngIf="tipo==='mesabancos' || tipo==='muebles'|| tipo==='escritorios' || tipo==='pizarrones'|| tipo==='mesas'" class="table-responsive mt-4 container-md mx-auto">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Caracteristicas</th>
+        <th>Costo</th>
+        <th>Edificio</th>
+        <th>Lugar_edificio</th>
+        <th>Qr</th>
+        <th>Garantia</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consult of consultam">
+        <td>{{ consult.nombre }}</td>
+        <td>{{ consult.marca }}</td>
+        <td>{{ consult.caracteristicas }}</td>
+        <td>{{ consult.costo | currency }}</td>
+        <td>{{ consult.edificio }}</td>
+        <td>{{ consult.lugar_edificio }}</td>
+        <td>{{ consult.qr }} <button [routerLink]="['/generarQr/', consult.id]" *ngIf="consult.qr == false || consult.qr == null" class="btn btn-success btn-sm">
+            generar qr
+        </button>
+        </td>
+        <td>
+          <button [routerLink]="['/garantia/', consult.id, 'Registrar']" *ngIf="consult.garantia == 'sin subir' || consult.garantia == null" class="btn btn-success btn-sm"
+          >
+            registrar
+          </button>
+          <button [routerLink]="['/garantia/', consult.id,'Ver']" *ngIf="consult.garantia == 'registrada'" class="btn btn-success btn-sm">
+            Ver garantia
+          </button>
+        </td>
+        <td>{{consult.estado}}</td>
+        <td>
+          <div class="row g-2">
+            <div class="col-md">
+              <button
+                class="btn btn-success btn-sm"
+                [routerLink]="['/editar-articulo/', consult.id, consult.tipo]"
+              >
+                editar
+              </button>
+            </div>
+            <div class="col-md">
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminar(consult.id)"
+              >
+                eliminar
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div *ngIf="tipo==='computadoras'" class="table-responsive mt-4 container-md mx-auto">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>PlacaMadre</th>
+        <th>Procesador</th>
+        <th>DiscoDuro</th>
+        <th>Ram</th>
+        <th>SO</th>
+        <th>Costo</th>
+        <th>Edificio</th>
+        <th>Lugar_edificio</th>
+        <th>Qr</th>
+        <th>Garantia</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consult of consultarc">
+        <td>{{ consult.PlacaMadre }}</td>
+        <td>{{ consult.Procesador }}</td>
+        <td>{{ consult.DiscoDuro }}</td>
+        <td>{{ consult.Ram }}</td>
+        <td>{{ consult.SO }}</td>
+        <td>{{ consult.costo | currency }}</td>
+        <td>{{ consult.edificio }}</td>
+        <td>{{ consult.lugar_edificio }}</td>
+        <td>
+          {{ consult.qr }}
+          <button
+            [routerLink]="['/generarQr/', consult.id]"
+            *ngIf="consult.qr == false || consult.qr == null"
+            class="btn btn-success btn-sm"
+          >
+            generar qr
+          </button>
+        </td>
+        <td>
+          <button
+            [routerLink]="['/garantia/', consult.id, 'Registrar']"
+            *ngIf="consult.garantia == 'sin subir' || consult.garantia == null"
+            class="btn btn-success btn-sm"
+          >
+            registrar
+          </button>
+          <button
+          [routerLink]="['/garantia/', consult.id,'Ver']"
+            *ngIf="consult.garantia == 'registrada'"
+            class="btn btn-success btn-sm"
+          >
+            Ver garantia
+          </button>
+        </td>
+        <td>{{consult.estado}}</td>
+        <td>
+          <div class="row g-2">
+            <div class="col-md">
+              <button
+                class="btn btn-success btn-sm"
+                [routerLink]="['/editar-articulo/', consult.id, consult.tipo]"
+              >
+                editar
+              </button>
+            </div>
+            <div class="col-md">
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminar(consult.id)"
+              >
+                eliminar
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div *ngIf="tipo==='monitores'" class="table-responsive mt-4 container-md mx-auto">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Marca</th>
+        <th>Hz</th>
+        <th>Resolucion</th>
+        <th>Tipoentrada</th>
+        <th>Costo</th>
+        <th>Edificio</th>
+        <th>Lugar_edificio</th>
+        <th>Qr</th>
+        <th>Garantia</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consult of consultamon">
+        <td>{{ consult.nombre }}</td>
+        <td>{{ consult.marca }}</td>
+        <td>{{ consult.hz }}</td>
+        <td>{{ consult.resolucion }}</td>
+        <td>{{ consult.tipoentrada }}</td>
+        <td>{{ consult.costo | currency }}</td>
+        <td>{{ consult.edificio }}</td>
+        <td>{{ consult.lugar_edificio }}</td>
+        <td>
+          {{ consult.qr }}
+          <button
+            [routerLink]="['/generarQr/', consult.id]"
+            *ngIf="consult.qr == false || consult.qr == null"
+            class="btn btn-success btn-sm"
+          >
+            generar qr
+          </button>
+        </td>
+        <td>
+          <button
+          [routerLink]="['/garantia/', consult.id, 'Registrar']"
+          *ngIf="consult.garantia == 'sin subir' || consult.garantia == null"
+          class="btn btn-success btn-sm"
+        >
+          registrar
+        </button>
+        <button
+        [routerLink]="['/garantia/', consult.id,'Ver']"
+          *ngIf="consult.garantia == 'registrada'"
+          class="btn btn-success btn-sm"
+        >
+          Ver garantia
+        </button>
+        </td>
+        <td>{{consult.estado}}</td>
+        <td>
+          <div class="row g-2">
+            <div class="col-md">
+              <button
+                class="btn btn-success btn-sm"
+                [routerLink]="['/editar-articulo/', consult.id, consult.tipo]"
+              >
+                editar
+              </button>
+            </div>
+            <div class="col-md">
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminar(consult.id)"
+              >
+                eliminar
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div *ngIf="tipo==='proyectores'" class="table-responsive mt-4 container-md mx-auto">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Tipoentrada</th>
+        <th>Costo</th>
+        <th>Edificio</th>
+        <th>Lugar_edificio</th>
+        <th>Qr</th>
+        <th>Garantia</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consult of consultapro">
+        <td>{{ consult.modelo }}</td>
+        <td>{{ consult.marca }}</td>
+        <td>{{ consult.tipoentrada }}</td>
+        <td>{{ consult.costo | currency }}</td>
+        <td>{{ consult.edificio }}</td>
+        <td>{{ consult.lugar_edificio }}</td>
+        <td>
+          {{ consult.qr }}
+          <button
+            [routerLink]="['/generarQr/', consult.id]"
+            *ngIf="consult.qr == false || consult.qr == null"
+            class="btn btn-success btn-sm"
+          >
+            generar qr
+          </button>
+        </td>
+        <td>
+          <button
+            [routerLink]="['/garantia/', consult.id, 'Registrar']"
+            *ngIf="consult.garantia == 'sin subir' || consult.garantia == null"
+            class="btn btn-success btn-sm"
+          >
+            registrar
+          </button>
+          <button
+          [routerLink]="['/garantia/', consult.id,'Ver']"
+            *ngIf="consult.garantia == 'registrada'"
+            class="btn btn-success btn-sm"
+          >
+            Ver garantia
+          </button>
+        </td>
+        <td>{{consult.estado}}</td>
+        <td>
+          <div class="row g-2">
+            <div class="col-md">
+              <button
+                class="btn btn-success btn-sm"
+                [routerLink]="['/editar-articulo/', consult.id, consult.tipo]"
+              >
+                editar
+              </button>
+            </div>
+            <div class="col-md">
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminar(consult.id)"
+              >
+                eliminar
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div *ngIf="tipo==='climas'" class="table-responsive mt-4 container-md mx-auto">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Capacidad(ton)</th>
+        <th>Capacidad(enfri)</th>
+        <th>Modelo</th>
+        <th>Consumo</th>
+        <th>Alto_ancho</th>
+        <th>Costo</th>
+        <th>Edificio</th>
+        <th>Lugar_edificio</th>
+        <th>Qr</th>
+        <th>Garantia</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consult of consultacl">
+        <td>{{ consult.capacidadt }}</td>
+        <td>{{ consult.capacidade }}</td>
+        <td>{{ consult.modelo }}</td>
+        <td>{{ consult.consumo }}</td>
+        <td>{{ consult.alto_ancho }}</td>
+        <td>{{ consult.costo | currency }}</td>
+        <td>{{ consult.edificio }}</td>
+        <td>{{ consult.lugar_edificio }}</td>
+        <td>
+          {{ consult.qr }}
+          <button
+            [routerLink]="['/generarQr/', consult.id]"
+            *ngIf="consult.qr == false || consult.qr == null"
+            class="btn btn-success btn-sm"
+          >
+            generar qr
+          </button>
+        </td>
+        <td>
+          <button
+            [routerLink]="['/garantia/', consult.id, 'Registrar']"
+            *ngIf="consult.garantia == 'sin subir' || consult.garantia == null"
+            class="btn btn-success btn-sm"
+          >
+            registrar
+          </button>
+          <button
+          [routerLink]="['/garantia/', consult.id,'Ver']"
+            *ngIf="consult.garantia == 'registrada'"
+            class="btn btn-success btn-sm"
+          >
+            Ver garantia
+          </button>
+        </td>
+        <td>{{consult.estado}}</td>
+        <td>
+          <div class="row g-2">
+            <div class="col-md">
+              <button
+                class="btn btn-success btn-sm"
+                [routerLink]="['/editar-articulo/', consult.id, consult.tipo]"
+              >
+                editar
+              </button>
+            </div>
+            <div class="col-md">
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminar(consult.id)"
+              >
+                eliminar
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

@@ -1,0 +1,205 @@
+<nav class="nav nav-tabs nav-fill mt-3">
+    <a class="flex-sm-fill text-sm-center nav-link" aria-current="page" [routerLink]="['/registrar-inventario']">Registrar</a>
+    <a class="flex-sm-fill text-sm-center nav-link active disabled" >Consultar</a>
+    <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/mantenimientos']">Mantenimientos</a>
+  </nav>
+<div class="container-fluid mx-auto">
+    <h3 class="h3 text-center mt-3">Menu de seleccion de Inventario</h3>
+    <div class="row row-cols-md-4 row-cols-sm-2 g-4 mt-3">
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/mesa-banco-universitaria.png"
+              class="card-img-top"
+              alt="mesabanco.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">MesaBancos</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/mesabancos'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/estanteria.png"
+              class="card-img-top"
+              alt="estanteria.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Muebles</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/muebles'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/Pizarron-blanco.png"
+              class="card-img-top"
+              alt="Pizarron-blanco.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Pizarrones</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/pizarrones'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/proyector.png"
+              class="card-img-top"
+              alt="proyector.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Proyectores</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/proyectores'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/minisplit.png"
+              class="card-img-top"
+              alt="minisplit.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Climas</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/climas'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/mesa-escolar.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Mesas</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/mesas'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/escritorio.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Escritorios</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/escritorios'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/extintor.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Extintores</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/extintores'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/monitor.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Monitores</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/monitores'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/lona-proyector.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Lonas de proyector</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/lonas'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/silla-officina.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Sillas</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/silla-oficina'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/dispensador-agua.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Dispensadores de agua</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/dispensadores'">Consultar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="card text-center" style="width: 18rem">
+          <div class="card-header bg-secondary bg-opacity-50">
+            <img
+              src="./assets/computadora.png"
+              class="card-img-top"
+              alt="mesa-escolar.png"
+            />
+          </div>
+          <div class="card-body">
+            <p class="card-text h5">Computadoras</p>
+            <a class="btn btn-primary" [routerLink]="'/consultar/computadoras'">Consultar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

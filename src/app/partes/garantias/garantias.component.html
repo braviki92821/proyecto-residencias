@@ -1,0 +1,164 @@
+<nav class="nav nav-pills flex-column flex-sm-row mt-3">
+  <a
+    class="flex-sm-fill text-sm-center nav-link"
+    [routerLink]="['/registrar-inventario']"
+    aria-current="page"
+    >Registrar</a
+  >
+  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/consultar']"
+    >Consultar</a
+  >
+  <a class="flex-sm-fill text-sm-center nav-link">Mantenimientos</a>
+</nav>
+<h1 class="h1 mb-4 mt-3 fw-normal container-md">Garantias</h1>
+<div class="container-md border border-dark m-3 p-3 mx-auto">
+  <div *ngIf="acc.accion == 'Registrar'">
+    <h3>Intrucciones</h3>
+    <p>
+      -Recuerde si este Item contiene una garantia debe escanear y subir el
+      archivo en formato pdf
+    </p>
+    <p>
+      -A su vez rellene con los datos mas importantes el siguiente formulario
+    </p>
+    <p>-Debe asegurarse que los datos sean correctos</p>
+  </div>
+
+  <div *ngIf="acc.accion == 'Ver'">
+    <!-- <ngx-extended-pdf-viewer [src]="'{{safeurl}}'" [useBrowserLocale]="true" [textLayer]="true"></ngx-extended-pdf-viewer>  -->
+    <!-- <pdf-viewer [src]="safeurl" style="width: 400px; height: 500px"></pdf-viewer> -->
+    <!-- <iframe [src]="safeurl" style="width: 400px; height: 500px"></iframe> -->
+  </div>
+
+  <form class="was-validated" [formGroup]="formg">
+    <label for="floatingInput" class="d-block"
+      >Num Poliza(si la garantia no tiene numero de poliza coloque S/N):</label
+    >
+    <input
+      for="nombre"
+      type="text"
+      class="form-control w-100"
+      placeholder=""
+      formControlName="numpoliza"
+      required
+    />
+    <label for="floatingInput" class="d-block"
+      >Num Serie(si la garantia no tiene numero de serie coloque S/N):</label
+    >
+    <input
+      for="nombre"
+      type="text"
+      class="form-control w-100"
+      placeholder=""
+      formControlName="numserie"
+      required
+    />
+    <label for="floatingInput" class="d-block">Clave Producto:</label>
+    <input
+      for="nombre"
+      type="text"
+      class="form-control w-100"
+      placeholder=""
+      formControlName="claveprod"
+      required
+    />
+    <div class="row g-2">
+      <div class="col-md">
+        <label for="floatingInput" class="d-block"
+          >Tienda de adquisicion:</label
+        >
+        <input
+          for="nombre"
+          type="text"
+          class="form-control w-100"
+          placeholder=""
+          formControlName="tienda"
+          required
+        />
+      </div>
+      <div class="col-md">
+        <label for="floatingInput" class="d-block"
+          >Direccion de la tienda o distribuidor:</label
+        >
+        <input
+          for="nombre"
+          type="text"
+          class="form-control w-100"
+          placeholder=""
+          formControlName="direccion"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md">
+        <label for="floatingInput" class="d-block"
+          >Fecha adquisicion(dd-mm-yy):</label
+        >
+        <input
+          for="fechaad"
+          type="date"
+          class="form-control w-100"
+          placeholder="dd-mm-yyyy"
+          formControlName="fechaad"
+          required
+        />
+      </div>
+      <div class="col-md">
+        <label for="floatingInput" class="d-block"
+          >Fecha Expiracion(dd-mm-yy):</label
+        >
+        <input
+          for="fechaad"
+          type="date"
+          class="form-control w-100"
+          placeholder=""
+          formControlName="fechaex"
+          required
+        />
+      </div>
+      <div class="col-md">
+        <label for="floatingInput" class="d-block"
+          >Tiempo de garantia(ej 7 dias, 6 meses, 1 año):</label
+        >
+        <input
+          for="nombre"
+          type="text"
+          class="form-control w-100"
+          placeholder=""
+          formControlName="tiempog"
+          required
+        />
+      </div>
+    </div>
+    <label
+      for="formFileSm"
+      *ngIf="acc.accion == 'Registrar'"
+      class="form-label mt-3"
+      >Seleccione el archivo pdf</label
+    >
+    <input
+      (change)="subir($event)"
+      class="form-control form-control-sm"
+      id="formFileSm"
+      type="file"
+      accept="application/pdf"
+      required
+      *ngIf="acc.accion == 'Registrar'"
+    />
+
+    <button
+      *ngIf="acc.accion == 'Registrar'"
+      class="btn btn-success mt-3"
+      (click)="registrarGarantia()"
+      type="submit"
+    >
+      Registrar Garantia
+    </button>
+
+    <a *ngIf="acc.accion == 'Ver'" class="btn btn-success mt-3" [href]="url"
+      >Ver archivo Garantia</a
+    >
+  </form>
+</div>
