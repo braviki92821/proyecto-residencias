@@ -4,7 +4,6 @@ export interface usuario {
   Nombre: string;
   Email: string;
   Password: string;
-  Cargo:string;
   TipoUsuario: string;
 }
 export interface garantias {
@@ -62,6 +61,7 @@ export interface muebles {
   edificio: string;
   lugar_edificio: string;
   tipo: string;
+  subtipo:string
   qr: boolean;
   foto: string;
   garantia: string;
@@ -96,20 +96,6 @@ export interface proyectores {
   foto: string;
   garantia: string;
 }
-export interface dispensadorA{
-id:string;
-nombre:string;
-modelo:string;
-temperaturas:string;
-costo: string;
-estado: string;
-edificio: string;
-lugar_edificio: string;
-tipo: string;
-qr: boolean;
-foto: string;
-garantia: string;
-}
 export interface extintores{
   id: string;
 } 
@@ -117,8 +103,10 @@ export interface reportes{
   Item:string;
   autor:string;
   descripcion:string;
-  tipo:string;
+  ubicacionItem:string;
+  tipoItem:string
   fecha:string;
+  estado:string
 }
 export interface mantenimientos{
   id:string;

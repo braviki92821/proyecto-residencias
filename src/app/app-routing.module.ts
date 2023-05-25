@@ -13,7 +13,6 @@ import { MantenimientoCompletoComponent } from './partes/mantenimiento-completo/
 import { MantenimientosComponent } from './partes/mantenimientos/mantenimientos.component';
 import { MenuConsultarComponent } from './partes/menu-consultar/menu-consultar.component';
 import { RecoverypassComponent } from './partes/recoverypass/recoverypass.component';
-import { RegistroComponent } from './partes/registro/registro.component';
 import { ReportesComponent } from './partes/reportes/reportes.component';
 import { ScannerqrComponent } from './partes/scannerqr/scannerqr.component';
 import { AuthGuard } from './services/auth.guard';
@@ -23,7 +22,6 @@ import { AuthGuard } from './services/auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent,},
   { path: 'checaremail', component: ChecaremailComponent },
   { path: 'recuperarcontraseña', component: RecoverypassComponent },
   { path: 'registrar-inventario', component: CrudComponent,canActivate:[AuthGuard]},
@@ -31,7 +29,7 @@ const routes: Routes = [
   { path: 'menu-consultar', component: MenuConsultarComponent,canActivate:[AuthGuard]},
   { path: 'consultar/:tipo', component: ConsultarComponent,canActivate:[AuthGuard]},
   { path: 'dashboard', component: DashboardComponent,canActivate: [AngularFireAuthGuard]},
-  { path: 'generarQr',component: GenerarQrComponent,canActivate:[AuthGuard]},
+  { path: 'generarQr/:id',component: GenerarQrComponent,canActivate:[AuthGuard]},
   { path: 'garantia/:id/:tipo', component: GarantiasComponent,canActivate:[AuthGuard]},
   { path: 'usuarios',component:ConsultarusersComponent,canActivate:[AuthGuard]},
   { path: 'scanearQr',component:ScannerqrComponent,canActivate: [AngularFireAuthGuard]} ,

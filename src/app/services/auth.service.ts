@@ -32,6 +32,10 @@ export class AuthService {
     return this.authfirebase.authState.pipe(map((auth) => auth));
   }
 
+  deleteUser(){
+
+  }
+
   logout() {
     this.authfirebase.signOut();
   }

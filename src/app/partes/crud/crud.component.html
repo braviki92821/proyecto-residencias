@@ -1,7 +1,7 @@
 <nav class="nav nav-tabs nav-fill mt-3">
   <a class="flex-sm-fill text-sm-center nav-link active disabled" aria-current="page">Registrar</a>
   <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/menu-consultar']">Consultar</a>
-  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/mantenimientos']">Mantenimientos</a>
+  <!-- <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/mantenimientos']">Mantenimientos</a> -->
 </nav>
 
 <main class="form-signin w-100 m-auto">
@@ -10,9 +10,9 @@
   <div class="container-md">
     <form *ngIf="formsc" [formGroup]="select">
       <div class="form-floating">
-        <select formControlName="selecc"  class="form-select" aria-label="Floating label select example" id="floatingSelect">
-          <option selected disabled>--Selecciona una categoria</option>
-          <option [value]="'mueble'">Inmuebles</option>
+        <select formControlName="selecc" class="form-select" aria-label="Floating label select example" id="floatingSelect">
+          <option [attr.selected] disabled>--Selecciona una categoria</option>
+          <option [value]="'inmobiliario'">Inmobiliario</option>
           <option [value]="'computadoras'">Computadoras</option>
           <option [value]="'monitores'">Monitores</option>
           <option [value]="'climas'">Climas</option>
@@ -122,7 +122,7 @@
           type="text"
           class="form-control w-100"
           placeholder="colocar el precio sin signo de $"
-          formControlName="Costo"
+          formControlName="costo"
           required
         />
       </div>
@@ -174,13 +174,13 @@
     
   </div>
 
-  <div *ngIf="select.value.selecc === 'mueble'" class="container-md border border-dark m-3 p-3 mx-auto">
-    <form [formGroup]="FormM" class="was-validated">
+  <div *ngIf="select.value.selecc === 'inmobiliario' " class="container-md border border-dark m-3 p-3 mx-auto">
+    <form  [formGroup]="FormM"  class="was-validated">
       <label for="floatingInput" class="d-block">Nombre:</label>
       <input
         type="text"
         class="form-control w-100"
-        placeholder="ejemplo modelo de la silla + el aula,nombre del mueble"
+        placeholder="ejemplo modelo de la silla + el aula,nombre del inmobiliario"
         formControlName="nombre"
         required
       />
@@ -191,6 +191,7 @@
         class="form-control w-100"
         placeholder="escribir nombre de la tienda o marca si existe"
         formControlName="marca"
+        name="marca"
         required
       />
 
@@ -200,15 +201,17 @@
         id="exampleFormControlTextarea1"
         rows="3"
         formControlName="caracteristicas"
+        name="caracteristicas"
         required
       ></textarea>
 
       <label for="floatingInput" class="d-block">Costo:</label>
       <input
-        type="text"
+        type="number"
         class="form-control w-100"
         placeholder="coloque el precio sin signo de $"
-        formControlName="Costo"
+        formControlName="costo"
+        name="costo"
         required
       />
 
@@ -218,6 +221,7 @@
         class="form-control w-100"
         aria-label="Floating label select example"
         formControlName="edificio"
+        name="edificio"
         required
       >
         <option disabled selected>---</option>
@@ -237,14 +241,16 @@
         class="form-control w-100"
         placeholder="ejemplo aula-00, pasillo 1ra planta, oficinas, laborotorios etc"
         formControlName="lugar_edificio"
+        name="lugar_edificio"
         required
       />
-      <label for="floatingInput" class="d-block">Tipo de mueble:</label>
+      <label for="floatingInput" class="d-block">Tipo de inmueble:</label>
       <select
         type="value"
         class="form-control w-100"
         aria-label="Floating label select example"
-        formControlName="tipo"
+        formControlName="subtipo"
+        name="tipo"
         required
       >
         <option disabled selected>---</option>
@@ -254,6 +260,8 @@
         <option [value]="'estanterias'">Estanteria</option>
         <option [value]="'mesas'">Mesa Escolar</option>
         <option [value]="'pizarrones'">Pizarron</option>
+        <option [value]="'dispensadores'">Dispensadores de agua</option>
+        <option [value]="'lonas'">Lonas de proyector</option>
       </select>
 
       <button
@@ -365,7 +373,7 @@
         type="number"
         class="form-control w-100"
         placeholder="coloque el precio sin signo de $"
-        formControlName="Costo"
+        formControlName="costo"
         required
       />
 
@@ -425,7 +433,7 @@
         type="text"
         class="form-control w-100"
         placeholder=""
-        formControlName="nombre"
+        formControlName="modelo"
         required
       />
 
@@ -461,7 +469,7 @@
         type="number"
         class="form-control w-100"
         placeholder=""
-        formControlName="Costo"
+        formControlName="costo"
         required
       />
 
@@ -581,10 +589,10 @@
       <label for="floatingInput" class="d-block">Costo:</label>
       <input
         for="nombre"
-        type="text"
+        type="number"
         class="form-control w-100"
         placeholder="coloque el precio sin signo de $"
-        formControlName="Costo"
+        formControlName="costo"
         required
       />
 

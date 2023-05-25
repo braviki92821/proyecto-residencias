@@ -37,7 +37,6 @@ export class GenerarQrComponent implements OnInit {
 
   subir(event: any) {
     this.newImage = event.target.files[0];
-    console.log(this.newImage)
   }
 
   async upload() {
@@ -47,11 +46,13 @@ export class GenerarQrComponent implements OnInit {
       this.data.foto=res
       this.firestore.update(this.id,'inventario',this.data);
       this.toastr.success('Qr subido correctamente');
-      this.router.navigate(['/consultar']);
+      this.router.navigate(['/menu-consultar']);
     }else{
       this.toastr.error('No ha seleccionado una imagen');
     }
   }
 
   ngOnInit(): void {}
+
+  
 }

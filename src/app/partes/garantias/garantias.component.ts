@@ -42,7 +42,7 @@ export class GarantiasComponent implements OnInit {
   };
   
   url:string;
-  safeurl:any;
+  safeurl:SafeUrl;
 
   constructor(
     private fb: FormBuilder,
@@ -53,19 +53,17 @@ export class GarantiasComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {
     this.formg = this.fb.group({
-      numpoliza: ['', Validators.required],
-      numserie: ['', Validators.required],
-      claveprod: ['', Validators.required],
-      tienda: ['', Validators.required],
-      direccion: ['', Validators.required],
-      fechaad: ['', Validators.required],
-      fechaex: ['', Validators.required],
-      tiempog: ['', Validators.required],
+      NumPoliza: ['', Validators.required],
+      NumSerie: ['', Validators.required],
+      ClaveProducto: ['', Validators.required],
+      Tienda: ['', Validators.required],
+      Direccion: ['', Validators.required],
+      FechaCompra: ['', Validators.required],
+      FechaExpiracion: ['', Validators.required],
+      DuracionGarantia: ['', Validators.required],
     });
     this.id = this.aroute.snapshot.paramMap.get('id');
     this.acc.accion = this.aroute.snapshot.paramMap.get('tipo');
-    // console.log(this.id);
-    // console.log(this.acc.accion);
   }
 
   ngOnInit(): void {
@@ -78,14 +76,14 @@ export class GarantiasComponent implements OnInit {
         this.url=data.payload.data()['Archivo'];
         this.safeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
         this.formg.setValue({
-          numpoliza: data.payload.data()['NumPoliza'],
-          numserie: data.payload.data()['NumSerie'],
-          claveprod: data.payload.data()['ClaveProducto'],
-          tienda: data.payload.data()['Tienda'],
-          direccion: data.payload.data()['Direccion'],
-          fechaad: data.payload.data()['FechaCompra'],
-          fechaex: data.payload.data()['FechaExpiracion'],
-          tiempog: data.payload.data()['DuracionGarantia'],
+          NumPoliza: data.payload.data()['NumPoliza'],
+          NumSerie: data.payload.data()['NumSerie'],
+          ClaveProducto: data.payload.data()['ClaveProducto'],
+          Tienda: data.payload.data()['Tienda'],
+          Direccion: data.payload.data()['Direccion'],
+          FechaCompra: data.payload.data()['FechaCompra'],
+          FechaExpiracion: data.payload.data()['FechaExpiracion'],
+          DuracionGarantia: data.payload.data()['DuracionGarantia'],
         });
       });
     }
@@ -103,19 +101,11 @@ export class GarantiasComponent implements OnInit {
     }
 
     if (this.id !== null) {
-      this.garant.NumPoliza = this.formg.value.numpoliza;
-      this.garant.NumSerie = this.formg.value.numserie;
-      this.garant.ClaveProducto = this.formg.value.claveprod;
-      this.garant.Tienda = this.formg.value.tienda;
-      this.garant.Direccion = this.formg.value.direccion;
-      this.garant.FechaCompra = this.formg.value.fechaad;
-      this.garant.FechaExpiracion = this.formg.value.fechaex;
-      this.garant.DuracionGarantia = this.formg.value.tiempog;
-      await this.firestore
-        .documento(this.garant, 'garantias', this.id)
-        .catch((error) => {
+      this.garant = this.formg.value
+      this.garant.Archivo=''
+      await this.firestore.documento(this.garant, 'garantias', this.id).catch((error) => {
           this.toastr.error(this.firestore.firebaseError(error.code));
-        });
+          });
       const res = await this.firestore.agregarArchivo(
         this.id,
         this.newFile,
@@ -129,7 +119,7 @@ export class GarantiasComponent implements OnInit {
       this.firestore.update(this.id, 'garantias', archivo);
       this.firestore.actualizarItem(this.id, this.inv);
       this.toastr.success('Registrado Correctamente');
-      this.router.navigate(['/consultar']);
+      this.router.navigate(['/menu-consultar']);
     }
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { reportes } from 'src/app/modelos/modelos';
-import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { DatePipe } from '@angular/common';
 
@@ -17,24 +16,26 @@ export class ScannerqrComponent implements OnInit {
   FormCl: FormGroup;
   FormMon: FormGroup;
   FormProy: FormGroup;
-  FormRep: FormGroup;
   //visibilidad
   data = '';
+  ubicacion = ''
   tipo = '';
   // foto=''
-  nusuario = '';
+  nusuario:string;
   tusuario = '';
-
+  //
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: string | null | undefined;
 
   report: reportes = {
     Item: '',
-    autor:'',
+    autor: '',
     descripcion: '',
-    tipo: '',
     fecha: this.today.toLocaleDateString(),
+    ubicacionItem: '',
+    estado: 'no revisado',
+    tipoItem: ''
   };
 
   public onEvent(e: any): void {
@@ -93,22 +94,17 @@ export class ScannerqrComponent implements OnInit {
       lugar_edificio: [''],
     });
 
-    this.FormRep = this.fb.group({
-      id: ['', Validators.required],
-      autor: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      tipo: [''],
-    });
   }
 
   ngOnInit(): void {
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
-   // console.log(this.today.toString);
+    this.nusuario=String(localStorage.getItem('usuario'))
+     console.log(this.today.toString);
   }
 
   consultar(data: string) {
-    console.log(data);
     this.firestore.getdatos(this.data, 'inventario').subscribe((data) => {
+      this.ubicacion = data.payload.data()['edificio'] + " " +data.payload.data()['lugar_edificio']
       this.tipo = data.payload.data()['tipo'];
       if (this.tipo === 'mueble') {
         this.FormM.setValue({
@@ -116,7 +112,7 @@ export class ScannerqrComponent implements OnInit {
           marca: data.payload.data()['marca'],
           caracteristicas: data.payload.data()['caracteristicas'],
           edificio: data.payload.data()['edificio'],
-          lugar_edificio: data.payload.data()['lugar_edificio'],
+          lugar_edificio: data.payload.data()['lugar_edificio'], 
         });
       } else if (this.tipo === 'computadoras') {
         this.FormC.setValue({
@@ -154,21 +150,16 @@ export class ScannerqrComponent implements OnInit {
     });
   }
 
-  async enviarReporte() {
-    this.report.Item=this.data;
-    this.report.autor=this.nusuario;
-    this.report.descripcion = this.FormRep.value.descripcion;
-    if (this.tusuario === 'Administrador') {
-      this.report.tipo = this.FormRep.value.tipo;
-    } else {
-      this.report.tipo = 'averia';
-    }
-    await this.firestore
-      .documento(this.report, 'reportes', this.firestore.getId())
-      .catch((error) => {
+  async enviarReporte(descripcion:any,ubicacion:any,tp:any) {
+    this.report.Item = this.data;
+    this.report.autor = this.nusuario;
+    this.report.descripcion = String(descripcion.value);
+    this.report.ubicacionItem = String(ubicacion.value)
+    this.report.tipoItem = String(tp.value)
+    await this.firestore.documento(this.report, 'reportes', this.firestore.getId()).catch((error) => {
         this.toastr.error(this.firestore.firebaseError(error.code));
       });
-      this.toastr.success('Reporte Enviado')
+    this.toastr.success('Reporte Enviado')
   }
 
 }

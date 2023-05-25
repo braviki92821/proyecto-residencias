@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { climas, computadoras, extintores, monitores, muebles, proyectores} from 'src/app/modelos/modelos';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { jsPDF } from "jspdf";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts'
+import * as pdfMake from 'pdfmake/build/pdfmake';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-consultar',
@@ -20,6 +26,7 @@ export class ConsultarComponent implements OnInit {
   consultacl: climas[];
   consultaex: extintores[];
 
+  url : SafeUrl
   tipo: string | null;
 
   edificio = [ 'Edificio 1', 'Edificio 2', 'Edificio 3', 'Edificio 4', 'Edificio 5', 'Edificio Cristal', 'Gallineros', 'Cubiculos'];
@@ -39,9 +46,13 @@ export class ConsultarComponent implements OnInit {
     let texto = String(this.tipo);
     if (this.tipo === 'mesabancos') {
       this.consultarmuebles(this.tipo);
-    } else if (this.tipo === 'muebles') {
+    } else if (this.tipo === 'estanterias') {
       this.consultarmuebles(this.tipo);
     } else if (this.tipo === 'pizarrones') {
+      this.consultarmuebles(this.tipo);
+    }  else if (this.tipo === 'dispensadores') {
+      this.consultarmuebles(this.tipo);
+    }  else if (this.tipo === 'lonas') {
       this.consultarmuebles(this.tipo);
     } else if (this.tipo === 'monitores') {
       this.consultarmonitores();
@@ -50,6 +61,8 @@ export class ConsultarComponent implements OnInit {
     } else if (this.tipo === 'climas') {
       this.consultarclimas();
     } else if (this.tipo === 'escritorios') {
+      this.consultarmuebles(this.tipo);
+    }else if (this.tipo === 'sillas') {
       this.consultarmuebles(this.tipo);
     } else if (this.tipo === 'proyectores') {
       this.consultarproyectores();
@@ -61,7 +74,7 @@ export class ConsultarComponent implements OnInit {
 
   consultarmuebles(tipo: string) {
     this.firestore
-      .getCollection<muebles>('inventario', 'tipo', tipo)
+      .getCollection<muebles>('inventario', 'subtipo', tipo)
       .subscribe((user) => {
         this.consultam = user;
       });
@@ -73,6 +86,10 @@ export class ConsultarComponent implements OnInit {
       .subscribe((user) => {
         this.consultarc = user;
       });
+  }
+
+  descargar(url:string){
+    this.url = url
   }
 
   consultarmonitores() {
@@ -108,5 +125,50 @@ export class ConsultarComponent implements OnInit {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  crearPdf(){
+    for(let result of this.consultam){
+    const pdfDefinition: any = {
+      content: [
+          { text: 'Lista de Qr de '+this.tipo, style:'header' },
+          {
+            layout: 'lightHorizontalLines', // optional
+            table: {
+              // headers are automatically repeated if the table spans over multiple pages
+              // you can declare how many rows should be treated as headers
+              headerRows: 1,
+              widths: [ 'auto', 'auto', 100, '*' ],
+      
+              body: [
+                [ 'Id', 'Edificio', 'Lugar Edificio', 'ImagenQr' ],
+                [ result.id ,  result.edificio,  result.lugar_edificio,{image:'snow' ,
+                width: 150,
+                height: 150} ],
+              ]
+            }
+          }
+      ]   
+    ,
+    images:{  mySuperImage: 'data:image/jpeg;base64,...content...',
+              snow: result.foto },
+
+     styles: {
+    header: {
+      fontSize: 22,
+      bold: true,
+      alignment: 'center'
+    },
+    texto: {
+      fontSize: 16,
+    },
+    datos:{
+      fontSize: 16,
+      decoration: 'underline'
+    }
+     }
+    }
+    pdfMake.createPdf(pdfDefinition).download()
+    }
   }
 }

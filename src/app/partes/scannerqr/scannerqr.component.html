@@ -1,10 +1,6 @@
 <div class="container-md border border-dark m-3 p-3 mx-auto">
     <h3>Scannear Qr</h3>
-  <ngx-scanner-qrcode
-    #action="scanner"
-    (event)="onEvent($event)"
-    (error)="onError($event)"
-  ></ngx-scanner-qrcode>
+  <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event)" (error)="onError($event)"></ngx-scanner-qrcode>
 
   <!-- data  -->
   <label for="floatingInput" class="d-block">Id del Item:</label>
@@ -26,9 +22,10 @@
           <a *ngIf="action.isStart" (click)="handle(action, 'stop')" class="btn btn-danger">Dejar de scannear</a>
         </button>
 
-        <button class="btn btn-success mt-3" (click)="consultar('{{data}}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Consultar</button>
-
-        <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#ReporteModal">Reportar</button>
+        <button *ngIf="data === ''" class="btn btn-success mt-3" disabled>Consultar</button>
+        <button *ngIf="data !== ''" class="btn btn-success mt-3" (click)="consultar('{{data}}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Consultar</button>
+        <button *ngIf="data === ''" class="btn btn-success mt-3" disabled>Reportar</button>
+        <button *ngIf="data !== ''" class="btn btn-success mt-3" (click)="consultar('{{data}}')" data-bs-toggle="modal" data-bs-target="#ReporteModal">Reportar</button>
     </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,6 +37,8 @@
             </div>
             <div class="modal-body">
 
+                 <h1 *ngIf="data ==='' || data === undefined || tipo === '' || tipo === undefined"  class="h1 text-center">Sin Resultados</h1>
+ 
                 <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormM" *ngIf="tipo=='mueble'">
                     <label for="floatingInput" class="d-block">Nombre:</label>
                     <input
@@ -89,7 +88,6 @@
                       formControlName="lugar_edificio"
                     />
                 </form>
-
 
                 <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormC" *ngIf="tipo=='computadoras'">
                     <label for="floatingInput" class="d-block">PlacaMadre:</label>
@@ -142,8 +140,7 @@
                       formControlName="lugar_edificio"
                     />
                 </form>
-
-                
+               
                 <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormCl" *ngIf="tipo=='climas'">
                     <label for="floatingInput" class="d-block">Nombre:</label>
                     <input
@@ -203,8 +200,7 @@
                       formControlName="lugar_edificio"
                     />              
                 </form>
-
-                
+               
                 <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormMon" *ngIf="tipo=='monitores'">
                     
                     <label for="floatingInput" class="d-block">Modelo:</label>
@@ -261,8 +257,7 @@
                       formControlName="lugar_edificio"
                     />
                 </form>
-
-                
+             
                 <form class="container-md border border-dark m-3 p-3 mx-auto" [formGroup]="FormProy" *ngIf="tipo=='proyectores'">
                     <label for="floatingInput" class="d-block">Modelo:</label>
                     <input
@@ -346,41 +341,38 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form class="container-md border border-dark m-3 p-3 mx-auto was-validated" [formGroup]="FormRep">
+              <form  class="container-md border border-dark m-3 p-3 mx-auto was-validated">
                 <label for="floatingInput" class="d-block">Id de Item a reportar:</label>
                 <input
                   type="text"
                   class="form-control w-100"
-                  value="{{data}}"
-                  formControlName="id"
+                  [value]="data"
+                  disabled
                   required
                 />
                 <label for="floatingInput" class="d-block">Autor:</label>
                 <input
                   type="text"
                   class="form-control w-100"
-                  value="{{nusuario}}"
-                  formControlName="autor"
+                  [value]="nusuario"
+                  disabled
                   required
                 />
                 <label for="floatingInput" class="d-block">descripcion del problema o asunto:</label>
                 <textarea
                   class="form-control w-100"
                   rows="3"
-                  formControlName="descripcion"
+                  #descripcion
                   required
                 ></textarea>
 
-                <label class="d-block">Tipo de reporte</label>
-                <input type="text" *ngIf="tusuario=='Alumno'" [value]="'averia'" class="form-control w-100" formControlName="tipo">
-                <select *ngIf="tusuario=='Administrador'" class="form-control w-100" formControlName="tipo" required>
-                     <option selected>---</option>
-                     <option [value]="'averia'">averia</option>
-                     <option [value]="'preventivo'">preventivo</option>
-                </select>
+                <label class="d-block">Tipo de Item</label>
+                <input type="text" [value]="tipo" #tp disabled class="form-control w-100" required>
 
+                <label class="d-block">Ubicacion del Item</label>
+                <input type="text" [value]="ubicacion" #locacion disabled class="form-control w-100" required>
 
-                <button type="button" class="btn btn-primary mt-3" (click)="enviarReporte()">Enviar reporte</button>
+                <button type="button" class="btn btn-primary mt-3" (click)="enviarReporte(descripcion,locacion,tp)">Enviar reporte</button>
               </form>
             </div>
             <div class="modal-footer">

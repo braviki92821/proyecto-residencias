@@ -1,16 +1,3 @@
-<nav class="nav nav-pills flex-column flex-sm-row mt-3">
-  <a
-    class="flex-sm-fill text-sm-center nav-link active disabled"
-    aria-current="page"
-    >Registrar</a
-  >
-  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/consultar']"
-    >Consultar</a
-  >
-  <a class="flex-sm-fill text-sm-center nav-link">ver garantias</a>
-  <a class="flex-sm-fill text-sm-center nav-link">Mantenimientos</a>
-</nav>
-
 <h1 class="h1 mb-4 mt-3 fw-normal container-md">
   Generar Qr y agregar al Item
 </h1>
@@ -37,7 +24,7 @@
     -cuando lo seleccione de click en el boton abrir y de click en el boton
     Guardar Qr
   </p>
-  <p>-despues sera redirigido a la pagina de consultar</p>
+  <p>-despues sera redirigido a la pagina de menu consultar</p>
   <qrcode
     class="img-fluid text-center"
     (qrCodeURL)="qr($event)"
@@ -46,9 +33,8 @@
   ></qrcode>
   <p class="text-center">{{ id }}</p>
 
-  <a class="btn btn-success mt-3" [href]="url" download="{{ id }}"
-    >descargar Qr</a
-  >
+  <a class="btn btn-success mt-3" [href]="url" download="{{ id }}">descargar Qr</a>
+  
   <div class="mb-3">
     <label for="formFileSm" class="form-label mt-3"
       >Seleccione el Qr descargado</label

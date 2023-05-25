@@ -1,8 +1,13 @@
-<div class="mb-3 mt-3 fw-normal container-md">
+<div  class="mb-3 mt-3 fw-normal container-md">
+
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <button class="btn btn-primary btn-sm" [routerLink]="'/menu-consultar'">Regresar</button>
+  </div> 
   <h1 class="h3">Consultar {{tipo}}</h1>
-  <div *ngIf="tipo==='mesabancos' || tipo==='muebles'|| tipo==='escritorios' || tipo==='pizarrones'|| tipo==='mesas'" class="table-responsive mt-4 container-md mx-auto">
-  <table class="table table-bordered table-striped">
+   
+  <div  *ngIf="tipo==='mesabancos' || tipo==='estanterias' || tipo==='sillas' || tipo==='escritorios' || tipo==='pizarrones'|| tipo==='mesas' || tipo==='lonas' || tipo==='dispensadores'" class="table-responsive mt-4 container-md mx-auto">
+  <!-- <button type="button" class="btn btn-outline-primary" (click)="crearPdf()">decargar pdf</button> -->
+  <table  class="table table-bordered table-striped" >
     <thead class="table-dark">
       <tr>
         <th>Nombre</th>
@@ -25,9 +30,15 @@
         <td>{{ consult.costo | currency }}</td>
         <td>{{ consult.edificio }}</td>
         <td>{{ consult.lugar_edificio }}</td>
-        <td>{{ consult.qr }} <button [routerLink]="['/generarQr/', consult.id]" *ngIf="consult.qr == false || consult.qr == null" class="btn btn-success btn-sm">
-            generar qr
-        </button>
+        <td><button [routerLink]="['/generarQr/', consult.id]" *ngIf="consult.foto === '' || consult.foto === undefined || consult.foto === null; else descargarQr" class="btn btn-success btn-sm">
+             Generar qr
+            </button>
+            <ng-template #descargarQr> <a class="btn btn-success btn-sm" type="image/png" target="_blank" rel="noopener" href="{{consult.foto}}" download>
+                 Visualizar Qr
+                 </a>
+            </ng-template>
+             <!-- <ng-template #descargarQr><a href="{{consult.foto}}" download><img class="btn" src="{{consult.foto}}" download></a></ng-template>  -->
+            <!-- [href]="consult.foto" -->
         </td>
         <td>
           <button [routerLink]="['/garantia/', consult.id, 'Registrar']" *ngIf="consult.garantia == 'sin subir' || consult.garantia == null" class="btn btn-success btn-sm"
@@ -93,14 +104,12 @@
         <td>{{ consult.edificio }}</td>
         <td>{{ consult.lugar_edificio }}</td>
         <td>
-          {{ consult.qr }}
-          <button
-            [routerLink]="['/generarQr/', consult.id]"
-            *ngIf="consult.qr == false || consult.qr == null"
-            class="btn btn-success btn-sm"
-          >
-            generar qr
-          </button>
+          <button [routerLink]="['/generarQr/', consult.id]" *ngIf="consult.foto === '' || consult.foto === undefined || consult.foto === null; else descargarQr" class="btn btn-success btn-sm">
+            Generar qr
+           </button>
+           <ng-template #descargarQr> <a class="btn btn-success btn-sm" target="_blank" href="{{consult.foto}}" >
+             Visualizar Qr
+            </a></ng-template>
         </td>
         <td>
           <button
@@ -150,8 +159,6 @@
       <tr>
         <th>Nombre</th>
         <th>Marca</th>
-        <th>Hz</th>
-        <th>Resolucion</th>
         <th>Tipoentrada</th>
         <th>Costo</th>
         <th>Edificio</th>
@@ -166,21 +173,17 @@
       <tr *ngFor="let consult of consultamon">
         <td>{{ consult.nombre }}</td>
         <td>{{ consult.marca }}</td>
-        <td>{{ consult.hz }}</td>
-        <td>{{ consult.resolucion }}</td>
         <td>{{ consult.tipoentrada }}</td>
         <td>{{ consult.costo | currency }}</td>
         <td>{{ consult.edificio }}</td>
         <td>{{ consult.lugar_edificio }}</td>
         <td>
-          {{ consult.qr }}
-          <button
-            [routerLink]="['/generarQr/', consult.id]"
-            *ngIf="consult.qr == false || consult.qr == null"
-            class="btn btn-success btn-sm"
-          >
-            generar qr
-          </button>
+          <button [routerLink]="['/generarQr/', consult.id]" *ngIf="consult.foto === '' || consult.foto === undefined || consult.foto === null; else descargarQr" class="btn btn-success btn-sm">
+            Generar qr
+           </button>
+           <ng-template #descargarQr> <a class="btn btn-success btn-sm" target="_blank" href="{{consult.foto}}" >
+             Visualizar Qr
+            </a></ng-template>
         </td>
         <td>
           <button
@@ -249,14 +252,12 @@
         <td>{{ consult.edificio }}</td>
         <td>{{ consult.lugar_edificio }}</td>
         <td>
-          {{ consult.qr }}
-          <button
-            [routerLink]="['/generarQr/', consult.id]"
-            *ngIf="consult.qr == false || consult.qr == null"
-            class="btn btn-success btn-sm"
-          >
-            generar qr
-          </button>
+          <button [routerLink]="['/generarQr/', consult.id]" *ngIf="consult.foto === '' || consult.foto === undefined || consult.foto === null; else descargarQr" class="btn btn-success btn-sm">
+            Generar qr
+           </button>
+           <ng-template #descargarQr> <a class="btn btn-success btn-sm" target="_blank" href="{{consult.foto}}" >
+             Visualizar Qr
+            </a></ng-template>
         </td>
         <td>
           <button
@@ -308,7 +309,6 @@
         <th>Capacidad(enfri)</th>
         <th>Modelo</th>
         <th>Consumo</th>
-        <th>Alto_ancho</th>
         <th>Costo</th>
         <th>Edificio</th>
         <th>Lugar_edificio</th>
@@ -324,19 +324,16 @@
         <td>{{ consult.capacidade }}</td>
         <td>{{ consult.modelo }}</td>
         <td>{{ consult.consumo }}</td>
-        <td>{{ consult.alto_ancho }}</td>
         <td>{{ consult.costo | currency }}</td>
         <td>{{ consult.edificio }}</td>
         <td>{{ consult.lugar_edificio }}</td>
         <td>
-          {{ consult.qr }}
-          <button
-            [routerLink]="['/generarQr/', consult.id]"
-            *ngIf="consult.qr == false || consult.qr == null"
-            class="btn btn-success btn-sm"
-          >
-            generar qr
-          </button>
+          <button [routerLink]="['/generarQr/', consult.id]" *ngIf="consult.foto === '' || consult.foto === undefined || consult.foto === null; else descargarQr" class="btn btn-success btn-sm">
+            Generar qr
+           </button>
+           <ng-template #descargarQr> <a class="btn btn-success btn-sm" target="_blank" href="{{consult.foto}}" >
+             Visualizar Qr
+            </a></ng-template>
         </td>
         <td>
           <button

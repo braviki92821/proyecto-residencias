@@ -1,40 +1,125 @@
-<nav class="nav nav-pills flex-column flex-sm-row mt-3">
-  <a
-    class="flex-sm-fill text-sm-center nav-link"
-    [routerLink]="['/registro']"
-    aria-current="page"
-    >Registrar</a
-  >
-  <a class="flex-sm-fill text-sm-center nav-link active disabled">Consultar</a>
-</nav>
-<div class="container-md border border-dark m-2 p-2 mx-auto">
-  <h1 class="h3 mb-3 mt-3 fw-normal container-md">Consultar Inventarios</h1>
-  <div class="table-responsive">
-  <table class="table table-bordered table-striped">
-    <thead class="table-dark">
+<div class="container-md  m-2 p-2 mx-auto">
+  <h1 class="h3 mb-3 mt-3 fw-normal">Consultar Usuarios</h1>
+     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrarUsuario">Registrar Usuario</button>
+
+     <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped">
+      <thead class="table-dark">
         <tr>
-            <th>Matricula</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Tipo Usuario</th>
-            <th>Acciones</th>
+          <th>Matricula</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Tipo Usuario</th>
+          <th>Acciones</th>
         </tr>
-    </thead>
-    <tbody *ngFor="let consult of consultausers">
-        <tr >
-            <td> <input type="text" class="form-control border-0 transparent-input" #matricula value="{{consult.Matricula}}"></td>
-            <td> <input type="text" class="form-control border-0 transparent-input" #nombre value="{{consult.Nombre}}"></td>
-            <td>{{consult.Email}}</td>
-            <td>{{consult.Password}}</td>
-            <td>{{consult.TipoUsuario}}</td>
-            <td><div class="row row-cols-sm-1 row-cols-md-2">
-                  <div class="col mt-3"><button class="btn btn-primary" (click)="modificarUsuario(consult.id,matricula.value,nombre.value)">Modificar</button></div>
-                  <div class="col mt-3"><button class="btn btn-danger" (click)="eliminarUsuario(consult.id)">Eliminar</button></div>
-                </div>
-           </td>
+      </thead>
+      <tbody *ngFor="let consult of consultausers">
+        <tr>
+          <td>
+            <input
+              type="text"
+              class="form-control border-0 transparent-input"
+              #matricula
+              value="{{ consult.Matricula }}"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control border-0 transparent-input"
+              #nombre
+              value="{{ consult.Nombre }}"
+              
+            />
+          </td>
+          <td>{{ consult.Email }}</td>
+          <td>{{ consult.Password }}</td>
+          <td>{{ consult.TipoUsuario }}</td>
+          <td>
+            <div class="row row-cols-sm-1 row-cols-md-2">
+              <div class="col mt-3">
+                <button
+                  class="btn btn-primary"
+                  (click)="modificarUsuario(consult.id, matricula.value, nombre.value)">
+                  Modificar
+                </button>
+              </div>
+              <div class="col mt-3">
+                <button
+                  class="btn btn-danger"
+                  (click)="eliminarUsuario(consult.id)"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </td>
         </tr>
-    </tbody>
-  </table>
-</div>
+      </tbody>
+        </table>
+     </div>
+
+     <div class="modal fade" id="registrarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Usuarios</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div *ngIf="!carga">
+              <form (ngSubmit)="registrar()" [formGroup]="registrarUsuario" class="was-validated">
+                <label for="floatingInput" class="d-block mt-2">Matricula:</label>
+                <input
+                  type="text"
+                  class="form-control w-100"
+                  formControlName="Matricula"
+                  placeholder="ejem 000P333"
+                  required
+                />
+                
+          
+                <label for="floatingInput" class="d-block mt-2">Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control w-100"
+                  formControlName="Nombre"
+                  placeholder="Juan Perez"
+                  required
+                />
+          
+                <label for="floatingInput" class="d-block mt-2">Email:</label>
+                <input
+                  type="email"
+                  class="form-control w-100"
+                  formControlName="Email"
+                  placeholder="name@itspozarica.edu.mx"
+                  required
+                />
+          
+                <label for="floatingSelect" class="d-block mt-2">Selecciona un tipo de usuario</label>
+                <select
+                  type="value"
+                  class="form-control w-100"
+                  aria-label="Default select example"
+                  formControlName="TipoUsuario"
+                  required
+                >
+                  <option disabled selected>---</option>
+                  <option [value]="'Administrador'">Administrador</option>
+                  <option [value]="'Alumno'">Alumno</option>
+                </select>
+          
+                <button class="btn btn-success mt-3" type="submit">Registrar</button>
+              </form>
+            </div>
+            <app-spinner *ngIf="carga"></app-spinner>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument,} from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireStorage, GetDownloadURLPipe } from '@angular/fire/compat/storage';
 import { finalize, Observable } from 'rxjs';
 
 @Injectable({
@@ -61,20 +61,23 @@ export class FirestoreService {
       const ruta = path + nombre;
       const ref = this.storage.ref(ruta);
       const task = ref.put(archivo);
-      task
-        .snapshotChanges()
-        .pipe(
-          finalize(() => {
+      task.snapshotChanges().pipe( finalize(() => {
             ref.getDownloadURL().subscribe((res) => {
               const downloadURL = res;
+              console.log(res);
               console.log(downloadURL);
               resolve(downloadURL);
               return;
             });
           })
         )
-        .subscribe();
+        .subscribe(data=>console.log(data?.metadata.bucket));
     });
+  }
+
+  descargarArchivo(){
+    const ref = this.storage.refFromURL('https://firebasestorage.googleapis.com/v0/b/inventariotec-9a.appspot.com/o/Qrs%2F4Rk6BenhpRbBpjUC5mFf?alt=media&token=799f2edf-738a-4509-a09b-47f942f75b8e')
+    
   }
 
   firebaseError(code: String) {

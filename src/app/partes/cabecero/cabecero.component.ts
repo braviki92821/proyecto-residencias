@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './cabecero.component.html',
 })
 export class CabeceroComponent implements OnInit {
-  sesionac: boolean = false;
+  sesionac: boolean;
   nusuario: string;
   tpusuario: string ;
 

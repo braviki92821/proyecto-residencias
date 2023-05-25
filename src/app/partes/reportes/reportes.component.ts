@@ -11,94 +11,119 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 })
 export class ReportesComponent implements OnInit {
   select: FormGroup;
-  cat = '';
+  FormC: FormGroup;
+  FormM: FormGroup;
+  FormCl: FormGroup;
+  FormMon: FormGroup;
+  FormProy: FormGroup;
+  tipo = '';
   rep:reportes[]=[]
-  mant:FormGroup
   today: Date = new Date();
-
-  mante:mantenimientos={
-    Item: '',
-    tipo: '',
-    fechaS: this.today.toLocaleDateString(),
-    fechaT: '',
-    costo: '',
-    reporte: '',
-    id: ''
-  }
   
-  constructor(
-    private fb: FormBuilder,
-    private toastr: ToastrService,
-    private firestore: FirestoreService
-  ) {
-    this.select = this.fb.group({
-      selecc: ['', Validators.required],
+  constructor(private fb: FormBuilder,private toastr: ToastrService,private firestore: FirestoreService) {
+    this.FormC = this.fb.group({
+      PlacaMadre: [''],
+      Procesador: [''],
+      DiscoDuro: [''],
+      edificio: [''],
+      lugar_edificio: [''],
     });
 
-    this.mant=this.fb.group({
-      id:[''],
-      tipo:['',Validators.required]
-    })
-    
+    this.FormM = this.fb.group({
+      nombre: [''],
+      marca: [''],
+      caracteristicas: [''],
+      edificio: [''],
+      lugar_edificio: [''],
+    });
+
+    this.FormMon = this.fb.group({
+      nombre: [''],
+      marca: [''],
+      edificio: [''],
+      lugar_edificio: [''],
+    });
+
+    this.FormCl = this.fb.group({
+      nombre: [''],
+      modelo: [''],
+      consumo: [''],
+      alto_ancho: [''],
+      edificio: [''],
+      lugar_edificio: [''],
+    });
+
+    this.FormProy = this.fb.group({
+      nombre: [''],
+      marca: [''],
+      tipoentrada: [''],
+      edificio: [''],
+      lugar_edificio: [''],
+    });
   }
 
   ngOnInit(): void {
+    this.consultarReportes()
     console.log(this.today.toLocaleDateString())
   }
 
-  cambio() {
-    this.cat = this.select.value.selecc;
-    switch (this.cat) {
-      case 'averia':
-        return this.consultarAverias();
-      case 'preventivo':
-        return this.consultarPreventivas();
-      case 'mantenimiento':
-        return this.consultarMantenimientos();
-    }
+  consultarReportes(){
+    this.firestore.getCollection<reportes>('reportes', 'estado', 'no revisado')
+      .subscribe((user) => {
+        this.rep = user;
+        console.log(this.rep);
+      });
   }
 
- async enviarMantenimiento(){
-      this.mante.id=this.firestore.getId()
-      this.mante.Item=this.mant.value.id;
-      this.mante.tipo=this.mant.value.tipo;
-      await this.firestore
-      .documento(this.mante,'mantenimientos', this.mante.id)
-      .catch((error) => {
-        this.toastr.error(this.firestore.firebaseError(error.code));
-      });
-      const data:any={
-        estado:'En mantenimiento'
+  consultar(data: string) {
+    console.log(data)
+    this.firestore.getdatos(data, 'inventario').subscribe((data) => {
+      console.log(data.payload)
+    // this.ubicacion = data.payload.data()['edificio'] + " " +data.payload.data()['lugar_edificio']
+     this.tipo = data.payload.data()['tipo'];
+      if (this.tipo === 'mueble') {
+        this.FormM.setValue({
+          nombre: data.payload.data()['nombre'],
+          marca: data.payload.data()['marca'],
+          caracteristicas: data.payload.data()['caracteristicas'],
+          edificio: data.payload.data()['edificio'],
+          lugar_edificio: data.payload.data()['lugar_edificio'], 
+        });
+      } else if (this.tipo === 'computadoras') {
+        this.FormC.setValue({
+          PlacaMadre: data.payload.data()['PlacaMadre'],
+          Procesador: data.payload.data()['Procesador'],
+          DiscoDuro: data.payload.data()['DiscoDuro'],
+          edificio: data.payload.data()['edificio'],
+          lugar_edificio: data.payload.data()['lugar_edificio'],
+        });
+      } else if (this.tipo === 'proyectores') {
+        this.FormProy.setValue({
+          nombre: data.payload.data()['modelo'],
+          marca: data.payload.data()['marca'],
+          tipoentrada: data.payload.data()['tipoentrada'],
+          edificio: data.payload.data()['edificio'],
+          lugar_edificio: data.payload.data()['lugar_edificio'],
+        });
+      } else if (this.tipo === 'monitores') {
+        this.FormMon.setValue({
+          nombre: data.payload.data()['nombre'],
+          marca: data.payload.data()['marca'],
+          edificio: data.payload.data()['edificio'],
+          lugar_edificio: data.payload.data()['lugar_edificio'],
+        });
+      } else if (this.tipo === 'climas') {
+        this.FormCl.setValue({
+          nombre: data.payload.data()['nombre'],
+          modelo: data.payload.data()['modelo'],
+          consumo: data.payload.data()['consumo'],
+          alto_ancho: data.payload.data()['alto_ancho'],
+          edificio: data.payload.data()['edificio'],
+          lugar_edificio: data.payload.data()['lugar_edificio'],
+        });
       }
-      this.firestore.actualizarItem(this.mante.Item,data);
-      this.toastr.success('estatus actualizado del item');
-      this.mant.reset();
+    });
   }
 
-  consultarAverias(){
-    this.firestore
-      .getCollection<reportes>('reportes', 'tipo', 'averia')
-      .subscribe((user) => {
-        this.rep = user;
-        console.log(this.rep);
-      });
-  }
-
-  consultarPreventivas(){
-    this.firestore
-      .getCollection<reportes>('reportes', 'tipo', 'preventivo')
-      .subscribe((user) => {
-        this.rep = user;
-        console.log(this.rep);
-      });
-  }
-
-  consultarMantenimientos(){
-    this.firestore
-      .getCollection<reportes>('reportes', 'tipo', 'mantenimiento')
-      .subscribe((user) => {
-        this.rep = user;
-        console.log(this.rep);
-      });
-  }
+  
 }

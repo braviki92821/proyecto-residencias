@@ -3,12 +3,10 @@
     class="flex-sm-fill text-sm-center nav-link"
     [routerLink]="['/registrar-inventario']"
     aria-current="page"
-    >Registrar</a
-  >
-  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/consultar']"
-    >Consultar</a
-  >
-  <a class="flex-sm-fill text-sm-center nav-link">Mantenimientos</a>
+    >Registrar</a>
+
+  <a class="flex-sm-fill text-sm-center nav-link" [routerLink]="['/menu-consultar']">Consultar</a>
+  <!-- <a class="flex-sm-fill text-sm-center nav-link">Mantenimientos</a> -->
 </nav>
 <h1 class="h1 mb-4 mt-3 fw-normal container-md">Garantias</h1>
 <div class="container-md border border-dark m-3 p-3 mx-auto">
@@ -24,22 +22,20 @@
     <p>-Debe asegurarse que los datos sean correctos</p>
   </div>
 
-  <div *ngIf="acc.accion == 'Ver'">
-    <!-- <ngx-extended-pdf-viewer [src]="'{{safeurl}}'" [useBrowserLocale]="true" [textLayer]="true"></ngx-extended-pdf-viewer>  -->
-    <!-- <pdf-viewer [src]="safeurl" style="width: 400px; height: 500px"></pdf-viewer> -->
-    <!-- <iframe [src]="safeurl" style="width: 400px; height: 500px"></iframe> -->
+  <div  *ngIf="acc.accion == 'Ver'">
+    <!-- <ngx-extended-pdf-viewer [src]="url" [useBrowserLocale]="true" ></ngx-extended-pdf-viewer>  -->
+    <!-- <pdf-viewer class="form-control w-100" [src]="url" style="width: 400px; height: 500px"></pdf-viewer> -->
+    <iframe  class="form-control w-100" [src]="safeurl"  style="width: 600px; height: 500px"></iframe>
   </div>
 
   <form class="was-validated" [formGroup]="formg">
-    <label for="floatingInput" class="d-block"
-      >Num Poliza(si la garantia no tiene numero de poliza coloque S/N):</label
-    >
+    <label for="floatingInput" class="d-block">Num Poliza(si la garantia no tiene numero de poliza coloque S/N):</label>
     <input
       for="nombre"
       type="text"
       class="form-control w-100"
       placeholder=""
-      formControlName="numpoliza"
+      formControlName="NumPoliza"
       required
     />
     <label for="floatingInput" class="d-block"
@@ -50,7 +46,7 @@
       type="text"
       class="form-control w-100"
       placeholder=""
-      formControlName="numserie"
+      formControlName="NumSerie"
       required
     />
     <label for="floatingInput" class="d-block">Clave Producto:</label>
@@ -59,33 +55,29 @@
       type="text"
       class="form-control w-100"
       placeholder=""
-      formControlName="claveprod"
+      formControlName="ClaveProducto"
       required
     />
     <div class="row g-2">
       <div class="col-md">
-        <label for="floatingInput" class="d-block"
-          >Tienda de adquisicion:</label
-        >
+        <label for="floatingInput" class="d-block">Tienda de adquisicion:</label>
         <input
           for="nombre"
           type="text"
           class="form-control w-100"
           placeholder=""
-          formControlName="tienda"
+          formControlName="Tienda"
           required
         />
       </div>
       <div class="col-md">
-        <label for="floatingInput" class="d-block"
-          >Direccion de la tienda o distribuidor:</label
-        >
+        <label for="floatingInput" class="d-block">Direccion de la tienda o distribuidor:</label>
         <input
           for="nombre"
           type="text"
           class="form-control w-100"
           placeholder=""
-          formControlName="direccion"
+          formControlName="Direccion"
           required
         />
       </div>
@@ -93,61 +85,49 @@
 
     <div class="row g-3">
       <div class="col-md">
-        <label for="floatingInput" class="d-block"
-          >Fecha adquisicion(dd-mm-yy):</label
-        >
+        <label for="floatingInput" class="d-block">Fecha adquisicion(dd-mm-yy):</label>
         <input
           for="fechaad"
           type="date"
           class="form-control w-100"
           placeholder="dd-mm-yyyy"
-          formControlName="fechaad"
+          formControlName="FechaCompra"
           required
         />
       </div>
       <div class="col-md">
-        <label for="floatingInput" class="d-block"
-          >Fecha Expiracion(dd-mm-yy):</label
-        >
+        <label for="floatingInput" class="d-block">Fecha Expiracion(dd-mm-yy):</label>
         <input
           for="fechaad"
           type="date"
           class="form-control w-100"
           placeholder=""
-          formControlName="fechaex"
+          formControlName="FechaExpiracion"
           required
         />
       </div>
       <div class="col-md">
-        <label for="floatingInput" class="d-block"
-          >Tiempo de garantia(ej 7 dias, 6 meses, 1 año):</label
-        >
+        <label for="floatingInput" class="d-block">Tiempo de garantia(ej 7 dias, 6 meses, 1 año):</label>
         <input
           for="nombre"
           type="text"
           class="form-control w-100"
           placeholder=""
-          formControlName="tiempog"
+          formControlName="DuracionGarantia"
           required
         />
       </div>
     </div>
-    <label
-      for="formFileSm"
-      *ngIf="acc.accion == 'Registrar'"
-      class="form-label mt-3"
-      >Seleccione el archivo pdf</label
-    >
+
+    <label for="formFileSm" *ngIf="acc.accion == 'Registrar'" class="form-label mt-3" >Seleccione el archivo pdf</label>
     <input
       (change)="subir($event)"
-      class="form-control form-control-sm"
+      class="form-control form-control-sm mt-3"
       id="formFileSm"
       type="file"
       accept="application/pdf"
       required
-      *ngIf="acc.accion == 'Registrar'"
     />
-
     <button
       *ngIf="acc.accion == 'Registrar'"
       class="btn btn-success mt-3"
@@ -156,9 +136,6 @@
     >
       Registrar Garantia
     </button>
-
-    <a *ngIf="acc.accion == 'Ver'" class="btn btn-success mt-3" [href]="url"
-      >Ver archivo Garantia</a
-    >
+    <a *ngIf="acc.accion == 'Ver'" class="btn btn-success mt-3" >Actualizar Garantia</a>
   </form>
 </div>

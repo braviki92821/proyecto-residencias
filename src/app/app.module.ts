@@ -10,16 +10,14 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {NgxScannerQrcodeModule} from 'ngx-scanner-qrcode'
 
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './partes/login/login.component';
-import { RegistroComponent } from './partes/registro/registro.component';
 import { DashboardComponent } from './partes/dashboard/dashboard.component';
 import { ChecaremailComponent } from './partes/checaremail/checaremail.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { RecoverypassComponent } from './partes/recoverypass/recoverypass.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { CrudComponent } from './partes/crud/crud.component';
 import { ConsultarComponent } from './partes/consultar/consultar.component';
@@ -40,7 +38,6 @@ import { MenuConsultarComponent } from './partes/menu-consultar/menu-consultar.c
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistroComponent,
     DashboardComponent,
     ChecaremailComponent,
     SpinnerComponent,
@@ -70,7 +67,8 @@ import { MenuConsultarComponent } from './partes/menu-consultar/menu-consultar.c
     NgxExtendedPdfViewerModule, 
     PdfViewerModule,
     NgxScannerQrcodeModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [FirestoreService],
   bootstrap: [AppComponent],
